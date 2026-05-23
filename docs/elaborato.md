@@ -5,7 +5,7 @@ Lavoro di rielaborazione sul modulo di Intelligenza Artificiale svolto in classe
 !!! info "In sintesi"
     **Impegno previsto:** ~3 ore di lavoro effettivo a persona. Non deve essere un progetto enorme.
 
-    **Modalità:** individuale o in gruppo da 2–3. In gruppo va dichiarato in `README.md` chi ha fatto cosa.
+    **Modalità:** individuale o in **gruppo di 2 (massimo 3)**. In gruppo va dichiarato in `README.md` chi ha fatto cosa.
 
 ## Cosa scegliere
 
