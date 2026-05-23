@@ -31,9 +31,11 @@ docs/
 ├── programma.md          # Programma svolto
 ├── elaborato.md          # Consegna elaborato AI
 └── ai/                   # Modulo AI
+    ├── introduzione/      # Cos'è l'AI: AGI, singolarità, Hinton
     ├── programmazione/    # Cos'è un programma (+ PDF)
     ├── prerequisiti/
-    ├── regressione/
+    ├── regressione/       # Regressione lineare (minimi quadrati)
+    ├── gradient-descent/  # Metodo numerico (notebook)
     └── reti-neurali/
 ```
 

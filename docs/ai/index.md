@@ -1,6 +1,6 @@
 # Intelligenza Artificiale
 
-Il modulo parte da **cos'è l'AI** (definizioni di AGI e singolarità, il dibattito attuale), passa da **cos'è un programma** e dai **prerequisiti matematici** (vettori, matrici, gaussiana), arriva alla **regressione lineare** come primo modello da addestrare, e infine al **neurone artificiale** e alle **reti neurali** applicate al riconoscimento delle cifre (MNIST).
+Il modulo parte da **cos'è l'AI** (definizioni di AGI e singolarità, il dibattito attuale), passa da **cos'è un programma** e dai **prerequisiti matematici** (vettori, matrici, gaussiana), arriva alla **regressione lineare** come primo modello da addestrare e al **gradient descent** come metodo numerico per addestrarlo, e infine al **neurone artificiale** e alle **reti neurali** applicate al riconoscimento delle cifre (MNIST).
 
 ## Percorso
 
@@ -26,8 +26,14 @@ Il modulo parte da **cos'è l'AI** (definizioni di AGI e singolarità, il dibatt
 
 <a class="material-card" href="regressione/">
   <span class="kind">Sezione</span>
-  <div class="title">Regressione e gradient descent</div>
-  <div class="desc">Dati delle molle e della resistenza, funzione di costo, discesa del gradiente.</div>
+  <div class="title">Regressione lineare</div>
+  <div class="desc">Dimostrazione delle formule (minimi quadrati) dai dati delle molle; perché regressione batte la media per stimare R nell'esperimento sulla resistenza.</div>
+</a>
+
+<a class="material-card" href="gradient-descent/">
+  <span class="kind">Sezione</span>
+  <div class="title">Gradient descent</div>
+  <div class="desc">Metodo numerico generale per minimizzare la funzione di costo. Notebook didattico passo-passo.</div>
 </a>
 
 <a class="material-card" href="reti-neurali/">
@@ -43,6 +49,7 @@ Il modulo parte da **cos'è l'AI** (definizioni di AGI e singolarità, il dibatt
 1. **Cos'è l'AI** e dove si pensa che stia andando: AGI, singolarità, il dibattito acceso da chi l'AI l'ha costruita (Hinton).
 2. Cos'è un **programma**: una sequenza di istruzioni che un calcolatore esegue.
 3. Servono **vettori, matrici, derivate parziali**: senza questi non c'è AI.
-4. Un primo modello (la **retta di regressione**) ha già tutto quello che ci serve: dati, modello, funzione di costo, ottimizzazione.
-5. Generalizziamo: una somma pesata + non linearità = **neurone artificiale**.
-6. Più neuroni in parallelo = **layer**. Più layer = **rete neurale**. La addestriamo su MNIST e capiamo cosa significa "imparare dai dati".
+4. Un primo modello (la **retta di regressione**): dati, modello, funzione di costo. I parametri si ricavano con una **formula chiusa** (minimi quadrati).
+5. Quando la formula chiusa non c'è, serve un metodo numerico: il **gradient descent**.
+6. Generalizziamo: una somma pesata + non linearità = **neurone artificiale**.
+7. Più neuroni in parallelo = **layer**. Più layer = **rete neurale**. La addestriamo su MNIST e capiamo cosa significa "imparare dai dati".

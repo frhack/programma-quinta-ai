@@ -83,9 +83,11 @@ nav:
       - ai/programmazione/index.md
     - Prerequisiti matematici:
       - ai/prerequisiti/index.md
-    - Regressione e gradient descent:
+    - Regressione lineare:
       - ai/regressione/index.md
-      - Notebook didattico: ai/regressione/gradient-descent.ipynb
+    - Gradient descent:
+      - ai/gradient-descent/index.md
+      - Notebook didattico: ai/gradient-descent/gradient-descent.ipynb
     - Reti neurali:
       - ai/reti-neurali/index.md
       - Porte logiche (didattico): ai/reti-neurali/porte-logiche.ipynb

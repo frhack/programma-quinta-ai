@@ -20,12 +20,17 @@
 - Trasformazioni lineari (visualizzazione interattiva)
 - Distribuzione gaussiana
 
-### Apprendimento supervisionato
+### Regressione lineare
 
-- Regressione lineare: esperimento delle molle, fit dei dati
-- Esperimento sulla resistenza elettrica (raccolta e analisi dati)
+- Dati delle molle: dimostrazione delle formule della regressione lineare (minimi quadrati)
+- Esperimento sulla resistenza elettrica: la regressione lineare per stimare $R$ ha varianza minore della media dei rapporti $V/I$
 - Funzione di costo, parametri del modello
-- Discesa del gradiente (notebook didattico)
+
+### Gradient descent
+
+- Metodo numerico generale per minimizzare la funzione di costo
+- Aggiornamento iterativo dei parametri, learning rate
+- Notebook didattico in Python
 
 ### Reti neurali
 
