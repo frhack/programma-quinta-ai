@@ -1,6 +1,6 @@
 # Gradient descent
 
-Per la regressione lineare possiamo trovare i parametri $w, b$ in modo **analitico**, con la formula chiusa dei minimi quadrati (vedi [Regressione lineare](../regressione/index.md)). Ma quando il modello diventa più complesso — un neurone, una rete neurale — quella formula chiusa **non esiste più**. Serve un metodo che funzioni in tutti i casi: il *gradient descent*.
+Per la regressione lineare possiamo trovare i parametri $w, b$ in modo **analitico**, con la formula chiusa dei minimi quadrati (vedi [Regressione lineare](../regressione/index.md)). Ma quando il modello diventa più complesso — un neurone, una rete neurale — quella formula chiusa **non esiste più**. Serve un metodo numerico che funzioni in tutti i casi: il *gradient descent*.
 
 ## Idea
 
@@ -18,12 +18,50 @@ Il numero $\eta$ è il **learning rate**: troppo grande e si rimbalza fuori dal 
 
 ## Materiali
 
+### Costruire l'intuizione
+
 <div class="material-grid">
 
-<a class="material-card" href="gradient-descent.ipynb">
-  <span class="kind">Notebook</span>
-  <div class="title">Gradient descent didattico</div>
-  <div class="desc">Implementazione passo-passo in Python: dai dati delle molle alla loss che scende, con grafici di ogni iterazione.</div>
+<a class="material-card" href="derivative.html" target="_blank">
+  <span class="kind">Interattivo</span>
+  <div class="title">Gradiente in una dimensione</div>
+  <div class="desc">Funzione di una variabile: vedi come la derivata (pendenza della tangente) cambia muovendoti lungo la curva. Il "gradiente 1D" è la derivata.</div>
+</a>
+
+<a class="material-card" href="grad.html" target="_blank">
+  <span class="kind">Interattivo</span>
+  <div class="title">Gradiente in due dimensioni</div>
+  <div class="desc">Funzione di due variabili: il gradiente è un vettore con due componenti (derivate parziali) che punta nella direzione di massima salita.</div>
+</a>
+
+</div>
+
+### Vedere il gradient descent al lavoro
+
+<div class="material-grid">
+
+<a class="material-card" href="https://frhack.github.io/CORSO_AI/gd_live.html" target="_blank">
+  <span class="kind">Interattivo ↗</span>
+  <div class="title">Gradient descent — vista 2D</div>
+  <div class="desc">L'algoritmo che scende lungo una funzione di costo, visualizzato sulle curve di livello (2D). Modifica learning rate e punto di partenza.</div>
+</a>
+
+<a class="material-card" href="https://frhack.github.io/CORSO_AI/gd_live_3d.html" target="_blank">
+  <span class="kind">Interattivo ↗</span>
+  <div class="title">Gradient descent — vista 3D</div>
+  <div class="desc">La stessa discesa, vista come "una pallina che rotola" sulla superficie tridimensionale della loss.</div>
+</a>
+
+</div>
+
+### Applicazione: regressione lineare
+
+<div class="material-grid">
+
+<a class="material-card" href="https://github.com/frhack/oli_ai/blob/main/notebooks/oli_ai_gradient_descent_didattica.ipynb" target="_blank">
+  <span class="kind">Notebook ↗</span>
+  <div class="title">Trovare la retta che minimizza il costo (gradient descent)</div>
+  <div class="desc">Notebook didattico su GitHub: si applica il gradient descent ai dati delle molle per trovare $w, b$ che minimizzano la funzione di costo. Stesso problema della formula chiusa, risolto numericamente.</div>
 </a>
 
 </div>

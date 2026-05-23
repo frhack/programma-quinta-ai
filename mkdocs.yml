@@ -89,7 +89,6 @@ nav:
       - ai/regressione/index.md
     - Gradient descent:
       - ai/gradient-descent/index.md
-      - Notebook didattico: ai/gradient-descent/gradient-descent.ipynb
     - Reti neurali:
       - ai/reti-neurali/index.md
       - Porte logiche (didattico): ai/reti-neurali/porte-logiche.ipynb
