@@ -91,9 +91,4 @@ nav:
       - ai/gradient-descent/index.md
     - Reti neurali:
       - ai/reti-neurali/index.md
-      - Porte logiche (didattico): ai/reti-neurali/porte-logiche.ipynb
-      - Porte logiche con bias: ai/reti-neurali/porte-logiche-bias.ipynb
-      - Porte logiche con Keras: ai/reti-neurali/porte-logiche-keras.ipynb
-      - MNIST con cosine similarity: ai/reti-neurali/mnist-cosine-similarity.ipynb
-      - MNIST rete neurale: ai/reti-neurali/mnist-rete-neurale.ipynb
   - Elaborato finale: elaborato.md
