@@ -1,0 +1,94 @@
+site_name: Programma 5ª — Reti e Intelligenza Artificiale
+site_description: Materiale didattico di reti e AI, Liceo Scientifico Scienze Applicate, classe quinta
+site_author: Prof. Francesco Pasquini
+# site_url: https://USERNAME.github.io/REPO/   # decommenta dopo aver scelto il nome del repo
+
+theme:
+  name: material
+  language: it
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tooltips
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Modalità scura
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Modalità chiara
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search:
+      lang: it
+  - mkdocs-jupyter:
+      include_source: true
+      execute: false
+      allow_errors: false
+
+nav:
+  - Home: index.md
+  - Programma: programma.md
+  - Reti:
+    - reti/index.md
+  - Intelligenza Artificiale:
+    - ai/index.md
+    - Prerequisiti matematici:
+      - ai/prerequisiti/index.md
+    - Regressione e gradient descent:
+      - ai/regressione/index.md
+      - Notebook didattico: ai/regressione/gradient-descent.ipynb
+    - Reti neurali:
+      - ai/reti-neurali/index.md
+      - Porte logiche (didattico): ai/reti-neurali/porte-logiche.ipynb
+      - Porte logiche con bias: ai/reti-neurali/porte-logiche-bias.ipynb
+      - Porte logiche con Keras: ai/reti-neurali/porte-logiche-keras.ipynb
+      - MNIST con cosine similarity: ai/reti-neurali/mnist-cosine-similarity.ipynb
+      - MNIST rete neurale: ai/reti-neurali/mnist-rete-neurale.ipynb
+  - Elaborato finale: elaborato.md

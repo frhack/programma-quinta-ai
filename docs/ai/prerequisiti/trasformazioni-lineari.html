@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trasformazioni Lineari</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a14;
+    color: white;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ── Header ── */
+  #header { text-align: center; }
+  #header .subtitle {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #6366f1;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #header h1 {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: clamp(20px, 4vw, 32px);
+    background: linear-gradient(135deg, #c3a8f5, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background 0.5s;
+  }
+
+  /* ── Main layout ── */
+  #main {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* ── Sidebar ── */
+  #sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 180px;
+    max-width: 220px;
+    flex: 0 0 200px;
+  }
+  .t-btn {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 9px 12px;
+    cursor: pointer;
+    color: rgba(255,255,255,0.6);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+  }
+  .t-btn.active {
+    border-color: var(--col);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--col) 15%, transparent),
+                                        color-mix(in srgb, var(--col) 25%, transparent));
+    color: var(--col);
+  }
+  .t-btn .sym {
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 24px;
+    color: var(--col);
+    opacity: 0.6;
+  }
+  .t-btn.active .sym { opacity: 1; }
+
+  /* ── Canvas area ── */
+  #canvas-area {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1 1 460px;
+    max-width: 460px;
+  }
+  canvas {
+    border-radius: 12px;
+    display: block;
+  }
+  #controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ctrl-btn {
+    border-radius: 6px;
+    padding: 7px 18px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    transition: all 0.2s;
+  }
+  #btn-play  { background: rgba(195,168,245,0.13); border: 1px solid #c3a8f5; color: #c3a8f5; }
+  #btn-grid  { background: rgba(100,120,255,0.15); border: 1px solid #6480ff; color: #8fa0ff; }
+  #btn-trail { background: rgba(180,120,255,0.15); border: 1px solid #b478ff; color: #d4a0ff; }
+  .ctrl-btn.off { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); }
+
+  /* ── Info panel ── */
+  #info-panel {
+    flex: 1 1 220px;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card {
+    border-radius: 10px;
+    padding: 14px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .card-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 10px;
+  }
+
+  /* Info card */
+  #info-card {
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.4s;
+  }
+  #info-name {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  #info-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+  }
+
+  /* Matrix display */
+  #matrix-card { font-family: 'Courier New', monospace; }
+  #mat-bracket {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  #mat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+  }
+  .mat-val {
+    font-size: 20px;
+    text-align: right;
+    min-width: 58px;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s;
+  }
+  #mat-stats {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 10px;
+    font-size: 11px;
+  }
+  .stat-lbl { color: rgba(255,255,255,0.35); }
+  .stat-val { color: rgba(255,255,255,0.7); }
+  #det-val { color: #4ade80; }
+
+  /* Legend */
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+  .legend-note {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.8;
+  }
+
+  /* Properties */
+  .prop-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    font-size: 11px;
+  }
+  .prop-lbl { color: rgba(255,255,255,0.5); }
+  .prop-ok  { color: #4ade80; }
+  .prop-no  { color: #f87171; }
+
+  /* Footer */
+  #footer {
+    text-align: center;
+    font-size: 10px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div id="header">
+  <div class="subtitle">Algebra Lineare</div>
+  <h1 id="main-title">Trasformazioni Lineari</h1>
+</div>
+
+<!-- ── Main ── -->
+<div id="main">
+
+  <!-- Sidebar -->
+  <div id="sidebar"></div>
+
+  <!-- Canvas -->
+  <div id="canvas-area">
+    <canvas id="canvas" width="460" height="400"></canvas>
+    <div id="controls">
+      <button class="ctrl-btn" id="btn-play">⏸ Pausa</button>
+      <button class="ctrl-btn" id="btn-grid">Griglia</button>
+      <button class="ctrl-btn" id="btn-trail">Traccia</button>
+    </div>
+  </div>
+
+  <!-- Info panel -->
+  <div id="info-panel">
+    <div id="info-card" class="card">
+      <div id="info-name"></div>
+      <div id="info-desc"></div>
+    </div>
+
+    <!-- Legend -->
+    <div class="card">
+      <div class="card-label">LEGENDA</div>
+      <div class="legend-row">
+        <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#ff6b6b" stroke-width="2.5"/><polygon points="20,2 28,5 20,8" fill="#ff6b6b"/></svg>
+        <span>e₁ = (1, 0)</span>
+      </div>
+      <div class="legend-row">
+        <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#4ecdc4" stroke-width="2.5"/><polygon points="20,2 28,5 20,8" fill="#4ecdc4"/></svg>
+        <span>e₂ = (0, 1)</span>
+      </div>
+      <div class="legend-row">
+        <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#ffe66d" stroke-width="2.5"/><polygon points="20,2 28,5 20,8" fill="#ffe66d"/></svg>
+        <span>v &nbsp;= (1, 1)</span>
+      </div>
+      <div class="legend-row">
+        <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#a29bfe" stroke-width="2.5"/><polygon points="20,2 28,5 20,8" fill="#a29bfe"/></svg>
+        <span>w  = (−1, 0.5)</span>
+      </div>
+      <div class="legend-note">tratteggiato = originale<br>pieno = trasformato</div>
+    </div>
+
+    <!-- Matrix display -->
+    <div class="card" id="matrix-card">
+      <div class="card-label">MATRICE  T : ℝ² → ℝ²</div>
+      <div id="mat-bracket">
+        <svg width="12" height="56" viewBox="0 0 12 56" id="br-left">
+          <path d="M10,2 L4,2 L4,54 L10,54" fill="none" stroke="#c3a8f5" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div id="mat-grid">
+          <div class="mat-val" id="m00">1.00</div>
+          <div class="mat-val" id="m01">0.00</div>
+          <div class="mat-val" id="m10">0.00</div>
+          <div class="mat-val" id="m11">1.00</div>
+        </div>
+        <svg width="12" height="56" viewBox="0 0 12 56" id="br-right">
+          <path d="M2,2 L8,2 L8,54 L2,54" fill="none" stroke="#c3a8f5" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div id="mat-stats">
+        <span class="stat-lbl">T(e₁)</span><span class="stat-val" id="te1">= (1.00, 0.00)</span>
+        <span class="stat-lbl">T(e₂)</span><span class="stat-val" id="te2">= (0.00, 1.00)</span>
+        <span class="stat-lbl">det</span><span id="det-val">= 1.000</span>
+        <span class="stat-lbl">tr</span><span class="stat-val" id="tr-val">= 2.000</span>
+      </div>
+    </div>
+
+    <!-- Properties -->
+    <div class="card" id="props-card">
+      <div class="card-label">PROPRIETÀ</div>
+      <div class="prop-row"><span class="prop-lbl">Lineare</span>        <span class="prop-ok">✓</span></div>
+      <div class="prop-row"><span class="prop-lbl">Preserva angoli</span><span id="p-angles">✓</span></div>
+      <div class="prop-row"><span class="prop-lbl">Preserva lunghezze</span><span id="p-lengths">✓</span></div>
+      <div class="prop-row"><span class="prop-lbl">Iniettiva</span>      <span id="p-inject">✓</span></div>
+      <div class="prop-row"><span class="prop-lbl">Det ≠ 0</span>        <span id="p-det">✓</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="footer">T(αu + βv) = αT(u) + βT(v)</div>
+
+<script>
+// ============================================================
+// DATI
+// ============================================================
+const TRANSFORMS = [
+  { id:"identity",     name:"Identità",           symbol:"I",  color:"#a8edea", staticProbe:true,
+    desc:"Nessuna trasformazione. Ogni vettore rimane invariato: T(v) = v.",
+    matrix: t => [[1,0],[0,1]] },
+
+  { id:"scale",        name:"Scalatura",           symbol:"S",  color:"#ffd6a5",
+    desc:"Moltiplica ogni componente per un fattore k uniforme. Cambia la lunghezza, non la direzione.",
+    matrix: t => [[1+Math.sin(t)*0.8,0],[0,1+Math.sin(t)*0.8]] },
+
+  { id:"rotation",     name:"Rotazione",           symbol:"R",  color:"#c3a8f5",
+    desc:"Ruota il vettore attorno all'origine di θ, preservando la lunghezza (isometria).",
+    matrix: t => [[Math.cos(t),-Math.sin(t)],[Math.sin(t),Math.cos(t)]] },
+
+  { id:"reflection_x", name:"Riflessione (asse X)", symbol:"Rx", color:"#f9a8d4", staticProbe:true,
+    desc:"Riflette rispetto all'asse X: (x, y) → (x, −y). Matrice costante.",
+    matrix: t => [[1,0],[0,-1]] },
+
+  { id:"reflection_y", name:"Riflessione (asse Y)", symbol:"Ry", color:"#fb923c", staticProbe:true,
+    desc:"Riflette rispetto all'asse Y: (x, y) → (−x, y). Matrice costante.",
+    matrix: t => [[-1,0],[0,1]] },
+
+  { id:"shear_x",      name:"Shear X",             symbol:"Hx", color:"#86efac",
+    desc:"Inclina il piano lungo X: (x, y) → (x + ky, y).",
+    matrix: t => [[1,Math.sin(t)],[0,1]] },
+
+  { id:"shear_y",      name:"Shear Y",             symbol:"Hy", color:"#67e8f9",
+    desc:"Inclina il piano lungo Y: (x, y) → (x, y + kx).",
+    matrix: t => [[1,0],[Math.sin(t),1]] },
+
+  { id:"projection_x", name:"Proiezione su X",      symbol:"Px", color:"#fde68a", staticProbe:true,
+    desc:"Proietta sull'asse X: (x, y) → (x, 0). NON iniettiva — det = 0.",
+    matrix: t => [[1,0],[0,0]] },
+
+  { id:"projection_y", name:"Proiezione su Y",      symbol:"Py", color:"#fca5a5", staticProbe:true,
+    desc:"Proietta sull'asse Y: (x, y) → (0, y). NON iniettiva — det = 0.",
+    matrix: t => [[0,0],[0,1]] },
+
+  { id:"squeeze",      name:"Squeeze",              symbol:"Sq", color:"#a5b4fc",
+    desc:"Comprime in una direzione, espande nell'altra. Det = 1: l'area è conservata.",
+    matrix: t => { const k=0.5+Math.abs(Math.sin(t))*1.5; return [[k,0],[0,1/k]]; } },
+
+  { id:"spiral",       name:"Roto-Scala",           symbol:"RS", color:"#6ee7b7",
+    desc:"Combinazione di rotazione e scalatura: i vettori ruotano e cambiano lunghezza insieme.",
+    matrix: t => { const s=0.8+Math.sin(t*0.5)*0.5;
+      return [[s*Math.cos(t),-s*Math.sin(t)],[s*Math.sin(t),s*Math.cos(t)]]; } },
+];
+
+const VECTORS = [
+  { x:1,  y:0,   label:"e₁", color:"#ff6b6b" },
+  { x:0,  y:1,   label:"e₂", color:"#4ecdc4" },
+  { x:1,  y:1,   label:"v",  color:"#ffe66d" },
+  { x:-1, y:0.5, label:"w",  color:"#a29bfe" },
+];
+
+// Proprietà per id
+const PROPS = {
+  identity:     { angles:true,  lengths:true,  inject:true  },
+  scale:        { angles:true,  lengths:false, inject:true  },
+  rotation:     { angles:true,  lengths:true,  inject:true  },
+  reflection_x: { angles:true,  lengths:true,  inject:true  },
+  reflection_y: { angles:true,  lengths:true,  inject:true  },
+  shear_x:      { angles:false, lengths:false, inject:true  },
+  shear_y:      { angles:false, lengths:false, inject:true  },
+  projection_x: { angles:false, lengths:false, inject:false },
+  projection_y: { angles:false, lengths:false, inject:false },
+  squeeze:      { angles:false, lengths:false, inject:true  },
+  spiral:       { angles:true,  lengths:false, inject:true  },
+};
+
+// ============================================================
+// STATO
+// ============================================================
+let selectedId = "rotation";
+let time       = 0;
+let playing    = true;
+let showGrid   = true;
+let showTrail  = true;
+let trail      = [];
+let lastTs     = null;
+let rafId      = null;
+
+// ============================================================
+// UTILITY
+// ============================================================
+function applyMatrix(mat, v) {
+  return { x: mat[0][0]*v.x + mat[0][1]*v.y,
+           y: mat[1][0]*v.x + mat[1][1]*v.y };
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+// ============================================================
+// BUILD SIDEBAR
+// ============================================================
+const sidebar = document.getElementById('sidebar');
+TRANSFORMS.forEach(tr => {
+  const btn = document.createElement('button');
+  btn.className = 't-btn' + (tr.id === selectedId ? ' active' : '');
+  btn.style.setProperty('--col', tr.color);
+  btn.dataset.id = tr.id;
+  btn.innerHTML = `<span class="sym">${tr.symbol}</span>${tr.name}`;
+  btn.addEventListener('click', () => selectTransform(tr.id));
+  sidebar.appendChild(btn);
+});
+
+// ============================================================
+// SELECT TRANSFORM
+// ============================================================
+function selectTransform(id) {
+  selectedId = id;
+  trail = [];
+
+  // Update buttons
+  document.querySelectorAll('.t-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.id === id);
+  });
+
+  const tr = TRANSFORMS.find(t => t.id === id);
+
+  // Update header gradient
+  document.getElementById('main-title').style.background =
+    `linear-gradient(135deg, ${tr.color}, #ffffff)`;
+  document.getElementById('main-title').style.webkitBackgroundClip = 'text';
+  document.getElementById('main-title').style.webkitTextFillColor = 'transparent';
+
+  // Info card
+  document.getElementById('info-card').style.border = `1px solid ${tr.color}33`;
+  document.getElementById('info-card').style.background =
+    `linear-gradient(135deg, ${tr.color}0a, rgba(255,255,255,0.02))`;
+  document.getElementById('info-name').style.color = tr.color;
+  document.getElementById('info-name').textContent = tr.name;
+  document.getElementById('info-desc').textContent = tr.desc;
+
+  // Matrix bracket color
+  document.getElementById('br-left').querySelector('path').setAttribute('stroke', tr.color);
+  document.getElementById('br-right').querySelector('path').setAttribute('stroke', tr.color);
+
+  // Properties
+  const p = PROPS[id];
+  setprop('p-angles', p.angles);
+  setprop('p-lengths', p.lengths);
+  setprop('p-inject', p.inject);
+  setprop('p-det', p.inject);
+}
+
+function setprop(id, ok) {
+  const el = document.getElementById(id);
+  el.textContent = ok ? '✓' : '✗';
+  el.className = ok ? 'prop-ok' : 'prop-no';
+}
+
+// ============================================================
+// CONTROLS
+// ============================================================
+document.getElementById('btn-play').addEventListener('click', () => {
+  playing = !playing;
+  document.getElementById('btn-play').textContent = playing ? '⏸ Pausa' : '▶ Play';
+  if (playing) { lastTs = null; loop(performance.now()); }
+  else cancelAnimationFrame(rafId);
+});
+
+document.getElementById('btn-grid').addEventListener('click', () => {
+  showGrid = !showGrid;
+  document.getElementById('btn-grid').classList.toggle('off', !showGrid);
+});
+
+document.getElementById('btn-trail').addEventListener('click', () => {
+  showTrail = !showTrail;
+  document.getElementById('btn-trail').classList.toggle('off', !showTrail);
+});
+
+// ============================================================
+// CANVAS DRAW
+// ============================================================
+const canvas = document.getElementById('canvas');
+const ctx    = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+const cx = W/2, cy = H/2;
+const SCALE = 70;
+
+function draw() {
+  const tr  = TRANSFORMS.find(t => t.id === selectedId);
+  const mat = tr.matrix(time);
+
+  // Trail update
+  if (showTrail) {
+    const pt = applyMatrix(mat, {x:1.5, y:0.8});
+    trail.push(pt);
+    if (trail.length > 120) trail.shift();
+  }
+
+  ctx.clearRect(0,0,W,H);
+
+  // Background
+  ctx.fillStyle = '#0a0a14';
+  ctx.fillRect(0,0,W,H);
+
+  // ── Grid ──
+  if (showGrid) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+    ctx.lineWidth = 1;
+    for (let g=-6; g<=6; g++) {
+      ctx.beginPath(); ctx.moveTo(cx+g*SCALE,0); ctx.lineTo(cx+g*SCALE,H); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,cy+g*SCALE); ctx.lineTo(W,cy+g*SCALE); ctx.stroke();
+    }
+    // Transformed grid
+    ctx.strokeStyle = 'rgba(100,120,255,0.12)';
+    for (let g=-5; g<=5; g++) {
+      let p1=applyMatrix(mat,{x:g,y:-5}), p2=applyMatrix(mat,{x:g,y:5});
+      ctx.beginPath(); ctx.moveTo(cx+p1.x*SCALE,cy-p1.y*SCALE); ctx.lineTo(cx+p2.x*SCALE,cy-p2.y*SCALE); ctx.stroke();
+      let q1=applyMatrix(mat,{x:-5,y:g}), q2=applyMatrix(mat,{x:5,y:g});
+      ctx.beginPath(); ctx.moveTo(cx+q1.x*SCALE,cy-q1.y*SCALE); ctx.lineTo(cx+q2.x*SCALE,cy-q2.y*SCALE); ctx.stroke();
+    }
+  }
+
+  // ── Axes ──
+  ctx.strokeStyle='rgba(255,255,255,0.25)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(W,cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,H); ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font="12px 'Courier New'";
+  ctx.fillText('x',W-16,cy-8); ctx.fillText('y',cx+6,14);
+
+  // ── Trail ──
+  if (showTrail && trail.length>1) {
+    for (let i=1; i<trail.length; i++) {
+      const a=i/trail.length;
+      ctx.strokeStyle=`rgba(180,120,255,${a*0.6})`; ctx.lineWidth=a*2;
+      ctx.beginPath();
+      ctx.moveTo(cx+trail[i-1].x*SCALE, cy-trail[i-1].y*SCALE);
+      ctx.lineTo(cx+trail[i  ].x*SCALE, cy-trail[i  ].y*SCALE);
+      ctx.stroke();
+    }
+  }
+
+  // ── Static probe ──
+  if (tr.staticProbe) {
+    const r=1.4;
+    const probe  = {x:r*Math.cos(time), y:r*Math.sin(time)};
+    const probeT = applyMatrix(mat, probe);
+
+    ctx.strokeStyle='rgba(255,255,255,0.07)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(cx,cy,r*SCALE,0,Math.PI*2); ctx.stroke();
+
+    ctx.strokeStyle=tr.color+'55'; ctx.lineWidth=1.5;
+    ctx.beginPath();
+    for (let a=0; a<=Math.PI*2+0.1; a+=0.05) {
+      const p=applyMatrix(mat,{x:r*Math.cos(a),y:r*Math.sin(a)});
+      a===0 ? ctx.moveTo(cx+p.x*SCALE,cy-p.y*SCALE) : ctx.lineTo(cx+p.x*SCALE,cy-p.y*SCALE);
+    }
+    ctx.stroke();
+
+    probeArrow(probe,  'rgba(255,255,255,0.3)', 'u',    true);
+    probeArrow(probeT, tr.color,                'T(u)', false);
+  }
+
+  // ── Vectors ──
+  VECTORS.forEach(vec => {
+    const origin={x:0,y:0};
+    const rgb=hexToRgb(vec.color);
+    arrow(origin, vec, `rgba(${rgb},0.25)`, null, true);
+    arrow(origin, applyMatrix(mat,vec), vec.color,
+          tr.id==='identity' ? vec.label : vec.label+"'");
+  });
+
+  // ── Origin dot ──
+  ctx.fillStyle='white';
+  ctx.beginPath(); ctx.arc(cx,cy,3,0,Math.PI*2); ctx.fill();
+
+  // ── Matrix panel update ──
+  updateMatrix(mat);
+}
+
+// ── Arrow helpers ──
+function arrow(from, to, color, label, dashed=false) {
+  const fx=cx+from.x*SCALE, fy=cy-from.y*SCALE;
+  const tx=cx+to.x*SCALE,   ty=cy-to.y*SCALE;
+  const angle=Math.atan2(ty-fy,tx-fx);
+  if (Math.hypot(tx-fx,ty-fy)<2) return;
+  ctx.save();
+  ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=2.5;
+  if (dashed) ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(fx,fy);
+  ctx.lineTo(tx-Math.cos(angle)*10, ty-Math.sin(angle)*10); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(tx,ty);
+  ctx.lineTo(tx-Math.cos(angle-0.4)*12, ty-Math.sin(angle-0.4)*12);
+  ctx.lineTo(tx-Math.cos(angle+0.4)*12, ty-Math.sin(angle+0.4)*12);
+  ctx.closePath(); ctx.fill();
+  if (label) { ctx.font="bold 13px 'Courier New'"; ctx.fillText(label,tx+8,ty-6); }
+  ctx.restore();
+}
+
+function probeArrow(to, color, label, dashed=false) {
+  const tx=cx+to.x*SCALE, ty=cy-to.y*SCALE;
+  const angle=Math.atan2(ty-cy,tx-cx);
+  if (Math.hypot(tx-cx,ty-cy)<2) return;
+  ctx.save();
+  ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=2;
+  if (dashed) ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(cx,cy);
+  ctx.lineTo(tx-Math.cos(angle)*9, ty-Math.sin(angle)*9); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(tx,ty);
+  ctx.lineTo(tx-Math.cos(angle-0.4)*10, ty-Math.sin(angle-0.4)*10);
+  ctx.lineTo(tx-Math.cos(angle+0.4)*10, ty-Math.sin(angle+0.4)*10);
+  ctx.closePath(); ctx.fill();
+  if (label) { ctx.font="bold 12px 'Courier New'"; ctx.fillText(label,tx+7,ty-5); }
+  ctx.restore();
+}
+
+// ── Matrix DOM update ──
+function updateMatrix(mat) {
+  const tr = TRANSFORMS.find(t => t.id === selectedId);
+  const det = mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
+  const trVal = mat[0][0]+mat[1][1];
+
+  const vals = [mat[0][0],mat[0][1],mat[1][0],mat[1][1]];
+  const ids  = ['m00','m01','m10','m11'];
+  ids.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    el.textContent=vals[i].toFixed(2);
+    el.style.color = Math.abs(vals[i])<0.005 ? 'rgba(255,255,255,0.18)' : tr.color;
+  });
+
+  document.getElementById('te1').textContent = `= (${mat[0][0].toFixed(2)},  ${mat[1][0].toFixed(2)})`;
+  document.getElementById('te2').textContent = `= (${mat[0][1].toFixed(2)},  ${mat[1][1].toFixed(2)})`;
+
+  const detEl = document.getElementById('det-val');
+  detEl.textContent = `= ${det.toFixed(3)}`;
+  detEl.style.color = Math.abs(det)<0.01 ? '#f87171' : '#4ade80';
+
+  document.getElementById('tr-val').textContent = `= ${trVal.toFixed(3)}`;
+}
+
+// ============================================================
+// ANIMATION LOOP
+// ============================================================
+function loop(ts) {
+  if (lastTs===null) lastTs=ts;
+  const dt=(ts-lastTs)/1000;
+  lastTs=ts;
+  time+=dt*0.8;
+  draw();
+  if (playing) rafId=requestAnimationFrame(loop);
+}
+
+// Init
+selectTransform('rotation');
+rafId = requestAnimationFrame(loop);
+</script>
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Stima della resistenza · V = R·I + ε</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: radial-gradient(ellipse at top, #0f1629 0%, #070912 60%);
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  h1 {
+    font-family: Georgia, serif;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px 0;
+  }
+  h1 em { color: #fbbf24; font-weight: 500; }
+  .sub {
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.55;
+    max-width: 1100px;
+    margin-bottom: 22px;
+  }
+  .sub .ciano { color: #38bdf8; }
+  .sub .rosa  { color: #f472b6; }
+
+  .panel {
+    background: linear-gradient(180deg, rgba(30,41,59,0.45), rgba(15,23,42,0.55));
+    border: 1px solid rgba(148,163,184,0.14);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .controls {
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  button {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(148,163,184,0.25);
+    background: rgba(30,41,59,0.5);
+    color: #e2e8f0;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  button:hover { background: rgba(51,65,85,0.7); }
+  .ctrl { display: flex; align-items: center; gap: 10px; }
+  .ctrl label {
+    font-size: 12px; color: #94a3b8; letter-spacing: 0.04em;
+  }
+  input[type=range] {
+    -webkit-appearance: none; appearance: none;
+    width: 140px; height: 4px;
+    background: rgba(148,163,184,0.22);
+    border-radius: 2px; outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #e2e8f0; cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(148,163,184,0.18);
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 14px; height: 14px; border: 0; border-radius: 50%;
+    background: #e2e8f0; cursor: pointer;
+  }
+  .val {
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 13px;
+    min-width: 80px;
+  }
+  .iter-box { margin-left: auto; display: flex; align-items: baseline; gap: 10px; }
+  .iter-label {
+    font-size: 11px; color: #64748b;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .iter-value {
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 22px; font-weight: 500;
+  }
+
+  .charts {
+    display: grid; grid-template-columns: 2fr 3fr; gap: 18px; margin-bottom: 18px;
+  }
+  .stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px;
+  }
+  .panel h3 {
+    font-family: Georgia, serif; font-weight: 500; font-size: 16px;
+    margin: 0 0 4px 0;
+  }
+  .panel .desc { color: #64748b; font-size: 12px; margin-bottom: 10px; }
+
+  canvas { display: block; width: 100%; height: 320px; }
+
+  .stat-card .lbl {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .stat-card .formula {
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 12px; color: #64748b; margin-bottom: 12px;
+  }
+  .stat-card .row {
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 13px; line-height: 1.85;
+  }
+  .stat-card .row .k { color: #64748b; }
+  .stat-card.m1 { border-top: 2px solid #38bdf8; }
+  .stat-card.m1 .lbl { color: #38bdf8; }
+  .stat-card.m2 { border-top: 2px solid #f472b6; }
+  .stat-card.m2 .lbl { color: #f472b6; }
+  .stat-card.eff { border-top: 2px solid #fbbf24; }
+  .stat-card.eff .lbl { color: #fbbf24; }
+  .eff-num {
+    font-family: Georgia, serif; font-size: 38px;
+    color: #fbbf24; line-height: 1;
+  }
+  .eff-foot { font-size: 12px; color: #94a3b8; margin-top: 10px; line-height: 1.5; }
+
+  @media (max-width: 900px) {
+    .charts { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1><em>Stima</em> della resistenza · <span style="color:#94a3b8;font-style:italic;font-weight:400">V = R·I + ε</span></h1>
+<div class="sub">
+  10 punti equispaziati di corrente da 1 A a 10 A, misura di V con rumore gaussiano ε ∼ N(0, σ²).
+  Due stimatori a confronto: <span class="ciano">media dei rapporti V/I</span> contro
+  <span class="rosa">regressione lineare</span>.
+  L'esperimento ripete all'infinito; le distribuzioni degli stimatori si formano sotto i tuoi occhi.
+</div>
+
+<div class="panel controls">
+  <button id="btnPlay">⏸ Pausa</button>
+  <button id="btnReset">↻ Reset</button>
+
+  <div class="ctrl">
+    <label>R vera</label>
+    <input id="sR" type="range" min="1" max="10" step="0.1" value="5">
+    <span class="val" id="vR" style="color:#fbbf24">5.0 Ω</span>
+  </div>
+
+  <div class="ctrl">
+    <label>σ rumore</label>
+    <input id="sS" type="range" min="0.1" max="5" step="0.1" value="2">
+    <span class="val" id="vS">2.0 V</span>
+  </div>
+
+  <div class="ctrl">
+    <label>velocità</label>
+    <input id="sB" type="range" min="1" max="200" step="1" value="100">
+    <span class="val" id="vB">6 250 esp/s</span>
+  </div>
+
+  <div class="iter-box">
+    <span class="iter-label">Iterazioni</span>
+    <span class="iter-value" id="vIter">0</span>
+  </div>
+</div>
+
+<div class="charts">
+  <div class="panel">
+    <h3>Misura corrente</h3>
+    <div class="desc">I punti chiari sono le 10 misure dell'iterazione corrente</div>
+    <canvas id="cVI" width="800" height="640"></canvas>
+  </div>
+  <div class="panel">
+    <h3>Distribuzioni degli stimatori R̂</h3>
+    <div class="desc">Istogramma empirico · si ridensifica in tempo reale</div>
+    <canvas id="cHist" width="1200" height="640"></canvas>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="panel stat-card m1">
+    <div class="lbl">Metodo 1 — Media V/I</div>
+    <div class="formula">R̂ = (1/N)·Σ Vᵢ/Iᵢ</div>
+    <div class="row">
+      <div><span class="k">R̂ (ultima) =</span> <span id="m1Last">—</span></div>
+      <div><span class="k">R̂ (media)  =</span> <span id="m1Mean">—</span></div>
+      <div><span class="k">σ empirica =</span> <span id="m1Std" style="color:#38bdf8">—</span></div>
+      <div><span class="k">σ teorica  =</span> <span id="m1StdT" style="color:#94a3b8">—</span></div>
+    </div>
+  </div>
+
+  <div class="panel stat-card m2">
+    <div class="lbl">Metodo 2 — Regressione lineare</div>
+    <div class="formula">R̂ = Σ(Iᵢ·Vᵢ) / Σ(Iᵢ²)</div>
+    <div class="row">
+      <div><span class="k">R̂ (ultima) =</span> <span id="m2Last">—</span></div>
+      <div><span class="k">R̂ (media)  =</span> <span id="m2Mean">—</span></div>
+      <div><span class="k">σ empirica =</span> <span id="m2Std" style="color:#f472b6">—</span></div>
+      <div><span class="k">σ teorica  =</span> <span id="m2StdT" style="color:#94a3b8">—</span></div>
+    </div>
+  </div>
+
+  <div class="panel stat-card eff">
+    <div class="lbl">Efficienza relativa</div>
+    <div class="formula">Var(media) / Var(regressione)</div>
+    <div style="display:flex;align-items:baseline;gap:10px">
+      <span class="eff-num" id="effEmp">—</span>
+      <span style="font-size:14px;color:#94a3b8">× empirico</span>
+    </div>
+    <div class="eff-foot">
+      Valore teorico: <span style="color:#e2e8f0;font-family:monospace" id="effT">—</span>×.
+      La regressione pesa implicitamente i punti per Iᵢ², sfruttando meglio le misure ad alta corrente.
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Costanti ────────────────────────────────────────────────────
+const N = 10;
+const I_MIN = 1, I_MAX = 10;
+const Is = Array.from({length: N}, (_, k) => I_MIN + (I_MAX - I_MIN) * k / (N - 1));
+const sumI2    = Is.reduce((s, I) => s + I*I,     0);
+const sumInvI2 = Is.reduce((s, I) => s + 1/(I*I), 0);
+const efficiencyT = (sumI2 * sumInvI2) / (N * N);
+const MAX_SAMPLES = 20000;
+const N_BINS = 60;
+const STEP_MS = 16;
+
+// ─── Stato ───────────────────────────────────────────────────────
+let R = 5, sigma = 2, batch = 100;
+let running = true;
+let iter = 0;
+let estMean = [];
+let estReg  = [];
+let lastPts = [];
+
+// ─── RNG gaussiano (Box–Muller) ──────────────────────────────────
+function randn(s) {
+  const u1 = Math.max(Math.random(), 1e-10);
+  const u2 = Math.random();
+  return s * Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+}
+
+// ─── Reset ───────────────────────────────────────────────────────
+function reset() {
+  estMean = []; estReg = []; lastPts = []; iter = 0;
+}
+
+// ─── Step di simulazione ─────────────────────────────────────────
+function simulate() {
+  for (let b = 0; b < batch; b++) {
+    let sumRatio = 0, sIV = 0, sI2 = 0;
+    const pts = new Array(N);
+    for (let i = 0; i < N; i++) {
+      const I = Is[i];
+      const V = R * I + randn(sigma);
+      pts[i] = { I, V };
+      sumRatio += V / I;
+      sIV += I * V;
+      sI2 += I * I;
+    }
+    const rM = sumRatio / N;
+    const rR = sIV / sI2;
+    if (Number.isFinite(rM)) estMean.push(rM);
+    if (Number.isFinite(rR)) estReg.push(rR);
+    if (b === batch - 1) lastPts = pts;
+  }
+  if (estMean.length > MAX_SAMPLES) estMean = estMean.slice(estMean.length - MAX_SAMPLES);
+  if (estReg.length  > MAX_SAMPLES) estReg  = estReg.slice(estReg.length  - MAX_SAMPLES);
+  iter += batch;
+}
+
+// ─── Canvas helpers per HiDPI ────────────────────────────────────
+function setupCanvas(c) {
+  const dpr = window.devicePixelRatio || 1;
+  const r = c.getBoundingClientRect();
+  c.width  = Math.round(r.width * dpr);
+  c.height = Math.round(r.height * dpr);
+  const ctx = c.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { ctx, w: r.width, h: r.height };
+}
+
+// ─── Disegno: grafico V vs I ─────────────────────────────────────
+function drawVI() {
+  const c = document.getElementById('cVI');
+  const { ctx, w, h } = setupCanvas(c);
+  const pad = { l: 50, r: 20, t: 12, b: 38 };
+  const W = w - pad.l - pad.r, H = h - pad.t - pad.b;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // Range Y dinamico ma stabile
+  const Imax = I_MAX + 0.5;
+  const Vmax = R * I_MAX + 4 * sigma;
+  const Vmin = -2 * sigma;
+
+  const xPx = I => pad.l + (I / Imax) * W;
+  const yPx = V => pad.t + (1 - (V - Vmin) / (Vmax - Vmin)) * H;
+
+  // Griglia
+  ctx.strokeStyle = 'rgba(148,163,184,0.10)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.t + (i / 5) * H;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + W, y); ctx.stroke();
+  }
+  for (let i = 0; i <= 5; i++) {
+    const x = pad.l + (i / 5) * W;
+    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + H); ctx.stroke();
+  }
+
+  // Assi
+  ctx.strokeStyle = '#64748b';
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '11px system-ui';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, pad.t + H);
+  ctx.lineTo(pad.l + W, pad.t + H); ctx.stroke();
+
+  // Tick X
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  for (let i = 0; i <= 5; i++) {
+    const v = (i / 5) * Imax;
+    const x = pad.l + (i / 5) * W;
+    ctx.fillText(v.toFixed(0), x, pad.t + H + 6);
+  }
+  ctx.fillText('Corrente I (A)', pad.l + W / 2, pad.t + H + 22);
+
+  // Tick Y
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  for (let i = 0; i <= 5; i++) {
+    const v = Vmin + (1 - i / 5) * (Vmax - Vmin);
+    const y = pad.t + (i / 5) * H;
+    ctx.fillText(v.toFixed(0), pad.l - 8, y);
+  }
+  ctx.save();
+  ctx.translate(14, pad.t + H / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.textAlign = 'center';
+  ctx.fillText('Tensione V (V)', 0, 0);
+  ctx.restore();
+
+  // Linea vera V = R·I
+  ctx.strokeStyle = '#fbbf24';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(xPx(0), yPx(0));
+  ctx.lineTo(xPx(Imax), yPx(R * Imax));
+  ctx.stroke();
+
+  // Fit media (ciano)
+  if (estMean.length) {
+    const Rm = estMean[estMean.length - 1];
+    ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(xPx(0), yPx(0));
+    ctx.lineTo(xPx(Imax), yPx(Rm * Imax));
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  // Fit regressione (rosa)
+  if (estReg.length) {
+    const Rr = estReg[estReg.length - 1];
+    ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(xPx(0), yPx(0));
+    ctx.lineTo(xPx(Imax), yPx(Rr * Imax));
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Punti misurati
+  ctx.fillStyle = '#e2e8f0';
+  ctx.strokeStyle = '#cbd5e1';
+  for (const p of lastPts) {
+    ctx.beginPath();
+    ctx.arc(xPx(p.I), yPx(p.V), 3.5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+  }
+}
+
+// ─── Disegno: istogramma stime ───────────────────────────────────
+function drawHist() {
+  const c = document.getElementById('cHist');
+  const { ctx, w, h } = setupCanvas(c);
+  const pad = { l: 50, r: 20, t: 12, b: 38 };
+  const W = w - pad.l - pad.r, H = h - pad.t - pad.b;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // Range X teorico: ~ ±4σ teoriche del metodo media (più larga)
+  const stdMeanT = (sigma / N) * Math.sqrt(sumInvI2);
+  const halfW = Math.max(0.25, stdMeanT * 4);
+  const x0 = R - halfW, x1 = R + halfW;
+  const dx = (x1 - x0) / N_BINS;
+
+  // Griglia
+  ctx.strokeStyle = 'rgba(148,163,184,0.10)';
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.t + (i / 5) * H;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + W, y); ctx.stroke();
+  }
+  for (let i = 0; i <= 5; i++) {
+    const x = pad.l + (i / 5) * W;
+    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + H); ctx.stroke();
+  }
+
+  // Bin
+  const cM = new Array(N_BINS).fill(0);
+  const cR = new Array(N_BINS).fill(0);
+  for (const v of estMean) {
+    const i = Math.floor((v - x0) / dx);
+    if (i >= 0 && i < N_BINS) cM[i]++;
+  }
+  for (const v of estReg) {
+    const i = Math.floor((v - x0) / dx);
+    if (i >= 0 && i < N_BINS) cR[i]++;
+  }
+
+  // Densità
+  const dM = estMean.length ? cM.map(c => c / (estMean.length * dx)) : new Array(N_BINS).fill(0);
+  const dR = estReg.length  ? cR.map(c => c / (estReg.length  * dx)) : new Array(N_BINS).fill(0);
+
+  // Scala Y comune
+  let yMax = 0;
+  for (let i = 0; i < N_BINS; i++) {
+    if (dM[i] > yMax) yMax = dM[i];
+    if (dR[i] > yMax) yMax = dR[i];
+  }
+  if (yMax === 0) yMax = 1;
+  yMax *= 1.1;
+
+  const xPx = v => pad.l + ((v - x0) / (x1 - x0)) * W;
+  const yPx = d => pad.t + (1 - d / yMax) * H;
+
+  // Assi
+  ctx.strokeStyle = '#64748b'; ctx.fillStyle = '#94a3b8';
+  ctx.font = '11px system-ui'; ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, pad.t + H);
+  ctx.lineTo(pad.l + W, pad.t + H); ctx.stroke();
+
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  for (let i = 0; i <= 5; i++) {
+    const v = x0 + (i / 5) * (x1 - x0);
+    const x = pad.l + (i / 5) * W;
+    ctx.fillText(v.toFixed(2), x, pad.t + H + 6);
+  }
+  ctx.fillText('R̂ stimata (Ω)', pad.l + W / 2, pad.t + H + 22);
+
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  for (let i = 0; i <= 5; i++) {
+    const v = (1 - i / 5) * yMax;
+    const y = pad.t + (i / 5) * H;
+    ctx.fillText(v.toFixed(2), pad.l - 8, y);
+  }
+
+  // Disegno istogramma a gradini con riempimento
+  function drawBars(densities, fill, stroke) {
+    ctx.fillStyle = fill;
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pad.l, pad.t + H);
+    for (let i = 0; i < N_BINS; i++) {
+      const x = xPx(x0 + i * dx);
+      const xN = xPx(x0 + (i + 1) * dx);
+      const y = yPx(densities[i]);
+      ctx.lineTo(x, y);
+      ctx.lineTo(xN, y);
+    }
+    ctx.lineTo(pad.l + W, pad.t + H);
+    ctx.closePath();
+    ctx.fill();
+    // Bordo solo sul profilo superiore
+    ctx.beginPath();
+    for (let i = 0; i < N_BINS; i++) {
+      const x = xPx(x0 + i * dx);
+      const xN = xPx(x0 + (i + 1) * dx);
+      const y = yPx(densities[i]);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      ctx.lineTo(xN, y);
+    }
+    ctx.stroke();
+  }
+  drawBars(dM, 'rgba(56, 189, 248, 0.35)',  '#38bdf8');
+  drawBars(dR, 'rgba(244, 114, 182, 0.35)', '#f472b6');
+
+  // Linea verticale R vera
+  ctx.strokeStyle = '#fbbf24';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([3, 3]);
+  ctx.beginPath();
+  ctx.moveTo(xPx(R), pad.t);
+  ctx.lineTo(xPx(R), pad.t + H);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#fbbf24';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+  ctx.fillText('R = ' + R.toFixed(1), xPx(R), pad.t - 2);
+}
+
+// ─── Statistiche numeriche ───────────────────────────────────────
+function statsOf(d) {
+  if (d.length < 2) return { m: NaN, s: NaN };
+  let m = 0;
+  for (const v of d) m += v;
+  m /= d.length;
+  let v = 0;
+  for (const x of d) v += (x - m) * (x - m);
+  v /= (d.length - 1);
+  return { m, s: Math.sqrt(v) };
+}
+
+function fmt(x, d = 3) {
+  return (x == null || !Number.isFinite(x)) ? '—' : x.toFixed(d);
+}
+
+function updateStats() {
+  const sM = statsOf(estMean);
+  const sR = statsOf(estReg);
+  const stdMeanT = (sigma / N) * Math.sqrt(sumInvI2);
+  const stdRegT  = sigma / Math.sqrt(sumI2);
+
+  document.getElementById('m1Last').textContent = fmt(estMean[estMean.length - 1]);
+  document.getElementById('m1Mean').textContent = fmt(sM.m);
+  document.getElementById('m1Std').textContent  = fmt(sM.s);
+  document.getElementById('m1StdT').textContent = fmt(stdMeanT);
+
+  document.getElementById('m2Last').textContent = fmt(estReg[estReg.length - 1]);
+  document.getElementById('m2Mean').textContent = fmt(sR.m);
+  document.getElementById('m2Std').textContent  = fmt(sR.s);
+  document.getElementById('m2StdT').textContent = fmt(stdRegT);
+
+  const eff = (Number.isFinite(sM.s) && Number.isFinite(sR.s) && sR.s > 0)
+              ? (sM.s / sR.s) ** 2 : NaN;
+  document.getElementById('effEmp').textContent = Number.isFinite(eff) ? eff.toFixed(2) : '—';
+  document.getElementById('effT').textContent   = efficiencyT.toFixed(2);
+  document.getElementById('vIter').textContent  = iter.toLocaleString('it-IT');
+}
+
+// ─── UI binding ──────────────────────────────────────────────────
+const sR = document.getElementById('sR');
+const sS = document.getElementById('sS');
+const sB = document.getElementById('sB');
+const vR = document.getElementById('vR');
+const vS = document.getElementById('vS');
+const vB = document.getElementById('vB');
+
+function updateBatchLabel() {
+  const rate = Math.round(batch * 1000 / STEP_MS);
+  vB.textContent = rate.toLocaleString('it-IT') + ' esp/s';
+}
+sR.oninput = e => { R = +e.target.value; vR.textContent = R.toFixed(1) + ' Ω'; reset(); };
+sS.oninput = e => { sigma = +e.target.value; vS.textContent = sigma.toFixed(1) + ' V'; reset(); };
+sB.oninput = e => { batch = +e.target.value; updateBatchLabel(); };
+updateBatchLabel();
+
+const btnPlay  = document.getElementById('btnPlay');
+const btnReset = document.getElementById('btnReset');
+btnPlay.onclick  = () => {
+  running = !running;
+  btnPlay.textContent = running ? '⏸ Pausa' : '▶ Avvio';
+};
+btnReset.onclick = () => reset();
+
+// ─── Loop ────────────────────────────────────────────────────────
+function tick() {
+  if (running) simulate();
+  drawVI();
+  drawHist();
+  updateStats();
+}
+setInterval(tick, STEP_MS);
+window.addEventListener('resize', () => { drawVI(); drawHist(); });
+</script>
+</body>
+</html>
