@@ -6,8 +6,11 @@ Il primo "modello che impara" del corso. Partendo da due esperimenti **reali fat
 
 1. **Dati**: coppie $(x_i, y_i)$, per esempio (forza applicata, allungamento della molla).
 2. **Modello**: $\hat y = w x + b$, una retta con due parametri $w$ (pendenza) e $b$ (intercetta).
-3. **Funzione di costo**: l'errore quadratico medio
-   $$L(w, b) = \frac{1}{N}\sum_{i=1}^{N} \big(y_i - (w x_i + b)\big)^2.$$
+3. **Funzione di costo**: l'errore quadratico medio fra previsioni e valori veri.
+
+$$
+L(w, b) = \frac{1}{N}\sum_{i=1}^{N} \big(y_i - (w x_i + b)\big)^2.
+$$
 
 Cerchiamo i valori di $w, b$ che **minimizzano** $L$. Per la regressione lineare esiste una **formula chiusa** (minimi quadrati): la ricaviamo per via analitica, partendo dai dati delle molle. Quando una formula chiusa non c'è — caso generale, reti neurali — usiamo invece il metodo numerico del *gradient descent*, trattato nella [sezione successiva](../gradient-descent/index.md).
 

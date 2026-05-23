@@ -10,9 +10,14 @@ Il **gradiente** $\nabla L$ è un vettore che, in ogni punto, indica la **direzi
 
 1. parto da una stima qualsiasi $w_0, b_0$;
 2. calcolo il gradiente nel punto corrente;
-3. faccio un piccolo passo nella **direzione opposta** al gradiente (cioè in discesa):
-   $$w \leftarrow w - \eta \,\frac{\partial L}{\partial w}, \qquad b \leftarrow b - \eta \,\frac{\partial L}{\partial b};$$
+3. faccio un piccolo passo nella **direzione opposta** al gradiente, cioè in discesa;
 4. ripeto finché la loss non smette di scendere.
+
+La regola di aggiornamento dei parametri è:
+
+$$
+w \leftarrow w - \eta \,\frac{\partial L}{\partial w}, \qquad b \leftarrow b - \eta \,\frac{\partial L}{\partial b}.
+$$
 
 Il numero $\eta$ è il **learning rate**: troppo grande e si rimbalza fuori dal minimo; troppo piccolo e l'algoritmo è lentissimo.
 
