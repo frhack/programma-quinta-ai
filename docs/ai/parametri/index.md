@@ -60,4 +60,10 @@ L'inferenza è la fase **veloce ed economica**: una volta che il modello è pron
   <div class="desc">Cosa sono i parametri, come si trovano, intuizione che apre la strada al gradient descent.</div>
 </a>
 
+<a class="material-card" href="https://github.com/frhack/oli_ai/blob/main/notebooks/oli_ai_mnist_cosine_similarity_didattica.ipynb" target="_blank">
+  <span class="kind">Notebook ↗</span>
+  <div class="title">MNIST: i parametri come "cifre medie"</div>
+  <div class="desc">Il caso più semplice possibile di apprendimento e inferenza. <strong>Apprendimento</strong>: per ogni cifra (0–9) calcolo l'immagine media dei suoi esempi nel training set — 10 vettori da 784 pixel, sono <em>i parametri</em>. <strong>Inferenza</strong>: per riconoscere una nuova cifra, faccio cosine similarity con i 10 template e scelgo il massimo. Niente funzione di costo, niente gradient descent — solo medie e prodotti scalari.</div>
+</a>
+
 </div>
