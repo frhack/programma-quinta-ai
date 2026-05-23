@@ -3,7 +3,7 @@ hide:
   - navigation
 ---
 
-# Programma 5ª — Reti e Intelligenza Artificiale
+# Programma 5ª — Intelligenza Artificiale
 
 Sito di supporto per la classe quinta del Liceo Scientifico — opzione Scienze Applicate.
 Raccoglie il **programma svolto**, il **materiale didattico** (dispense, slide, notebook, pagine interattive) e le **istruzioni per l'elaborato finale**.
@@ -13,19 +13,13 @@ Raccoglie il **programma svolto**, il **materiale didattico** (dispense, slide, 
 <a class="material-card" href="programma/">
   <span class="kind">Riferimento</span>
   <div class="title">Programma svolto</div>
-  <div class="desc">Argomenti trattati nel secondo quadrimestre, obiettivi per competenze, materiali di riferimento.</div>
-</a>
-
-<a class="material-card" href="reti/">
-  <span class="kind">Modulo</span>
-  <div class="title">Reti</div>
-  <div class="desc">Stack TCP/IP, indirizzamento IPv4, subnetting, protocolli, laboratorio.</div>
+  <div class="desc">Argomenti trattati, obiettivi per competenze, materiali di riferimento.</div>
 </a>
 
 <a class="material-card" href="ai/">
   <span class="kind">Modulo</span>
   <div class="title">Intelligenza Artificiale</div>
-  <div class="desc">Prerequisiti matematici, regressione, neurone artificiale, reti neurali, MNIST.</div>
+  <div class="desc">Programmazione, prerequisiti matematici, regressione, neurone artificiale, reti neurali, MNIST.</div>
 </a>
 
 <a class="material-card" href="elaborato/">

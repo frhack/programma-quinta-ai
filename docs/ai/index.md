@@ -1,10 +1,16 @@
 # Intelligenza Artificiale
 
-Il modulo parte dai **prerequisiti matematici** (vettori, matrici, gaussiana), arriva alla **regressione lineare** come primo modello da addestrare, e infine al **neurone artificiale** e alle **reti neurali** applicate al riconoscimento delle cifre (MNIST).
+Il modulo parte da **cos'è un programma**, passa ai **prerequisiti matematici** (vettori, matrici, gaussiana), arriva alla **regressione lineare** come primo modello da addestrare, e infine al **neurone artificiale** e alle **reti neurali** applicate al riconoscimento delle cifre (MNIST).
 
 ## Percorso
 
 <div class="material-grid">
+
+<a class="material-card" href="programmazione/">
+  <span class="kind">Sezione</span>
+  <div class="title">Programmazione</div>
+  <div class="desc">Cosa è un programma. Sequenze di istruzioni, algoritmi.</div>
+</a>
 
 <a class="material-card" href="prerequisiti/">
   <span class="kind">Sezione</span>
@@ -28,7 +34,8 @@ Il modulo parte dai **prerequisiti matematici** (vettori, matrici, gaussiana), a
 
 ## Filo conduttore
 
-1. Servono **vettori, matrici, derivate parziali**: senza questi non c'è AI.
-2. Un primo modello (la **retta di regressione**) ha già tutto quello che ci serve: dati, modello, funzione di costo, ottimizzazione.
-3. Generalizziamo: una somma pesata + non linearità = **neurone artificiale**.
-4. Più neuroni in parallelo = **layer**. Più layer = **rete neurale**. La addestriamo su MNIST e capiamo cosa significa "imparare dai dati".
+1. Cos'è un **programma**: una sequenza di istruzioni che un calcolatore esegue.
+2. Servono **vettori, matrici, derivate parziali**: senza questi non c'è AI.
+3. Un primo modello (la **retta di regressione**) ha già tutto quello che ci serve: dati, modello, funzione di costo, ottimizzazione.
+4. Generalizziamo: una somma pesata + non linearità = **neurone artificiale**.
+5. Più neuroni in parallelo = **layer**. Più layer = **rete neurale**. La addestriamo su MNIST e capiamo cosa significa "imparare dai dati".

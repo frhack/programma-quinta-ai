@@ -1,5 +1,5 @@
-site_name: Programma 5ª — Reti e Intelligenza Artificiale
-site_description: Materiale didattico di reti e AI, Liceo Scientifico Scienze Applicate, classe quinta
+site_name: Programma 5ª — Intelligenza Artificiale
+site_description: Materiale didattico di intelligenza artificiale, Liceo Scientifico Scienze Applicate, classe quinta
 site_author: Prof. Francesco Pasquini
 # site_url: https://USERNAME.github.io/REPO/   # decommenta dopo aver scelto il nome del repo
 
@@ -75,10 +75,9 @@ plugins:
 nav:
   - Home: index.md
   - Programma: programma.md
-  - Reti:
-    - reti/index.md
   - Intelligenza Artificiale:
     - ai/index.md
+    - Programmazione: ai/programmazione.md
     - Prerequisiti matematici:
       - ai/prerequisiti/index.md
     - Regressione e gradient descent:

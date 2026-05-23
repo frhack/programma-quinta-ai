@@ -1,6 +1,6 @@
-# Sito 5ª — Reti e Intelligenza Artificiale
+# Sito 5ª — Intelligenza Artificiale
 
-Sito statico (MkDocs Material) con programma svolto e materiale didattico per il modulo di Reti + AI della classe quinta del Liceo Scientifico — Scienze Applicate.
+Sito statico (MkDocs Material) con programma svolto e materiale didattico per il modulo di Intelligenza Artificiale della classe quinta del Liceo Scientifico — Scienze Applicate.
 
 ## Anteprima locale
 
@@ -30,8 +30,8 @@ docs/
 ├── index.md              # Home
 ├── programma.md          # Programma svolto
 ├── elaborato.md          # Consegna elaborato AI
-├── reti/                 # Modulo reti (PDF)
 └── ai/                   # Modulo AI
+    ├── programmazione.md # Cos'è un programma (+ PDF)
     ├── prerequisiti/
     ├── regressione/
     └── reti-neurali/
