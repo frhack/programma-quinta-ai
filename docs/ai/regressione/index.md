@@ -30,6 +30,12 @@ Cerchiamo i valori di $w, b$ che **minimizzano** $L$. Per la regressione lineare
   <div class="desc">Da una serie di misurazioni $(V_i, I_i)$ vogliamo stimare la resistenza $R$. Confrontiamo due strade: la <strong>media</strong> dei singoli rapporti $V_i/I_i$ e la <strong>regressione lineare</strong> ($R$ come pendenza della retta $V = R\,I$). Risultato: la regressione ha varianza minore, è una stima più precisa.</div>
 </a>
 
+<a class="material-card" href="lr-loss-surface-explorer.html" target="_blank">
+  <span class="kind">Interattivo</span>
+  <div class="title">Loss surface explorer</div>
+  <div class="desc">Visualizzazione interattiva della funzione di costo $L(w, b)$ della regressione lineare. Muovi $w$ e $b$ e guarda dove "cade" la retta sui dati, e dove ti trovi sulla superficie della loss. Utile per fissare l'idea che <em>"minimizzare la loss"</em> significa cercare il punto più basso di una superficie.</div>
+</a>
+
 </div>
 
 > Per il concetto generale di **parametri**, **apprendimento** e **inferenza**, vedi la sezione [Cosa sono i parametri?](../parametri/index.md).
