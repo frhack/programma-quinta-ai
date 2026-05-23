@@ -18,4 +18,10 @@ Punto di partenza del modulo di AI: cosa è un programma, cos'è un algoritmo, c
   <div class="desc">Stack vs Queue: come cambia la ricerca del percorso al variare della struttura dati.</div>
 </a>
 
+<a class="material-card" href="babilonese.html" target="_blank">
+  <span class="kind">Interattivo</span>
+  <div class="title">Algoritmo babilonese per la radice quadrata</div>
+  <div class="desc">Editor Python in-browser (Pyodide): modifica il codice e vedi le iterazioni convergere alla radice.</div>
+</a>
+
 </div>

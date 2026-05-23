@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python — Algoritmo Babilonese</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: #f5f5f5; color: #24292e;
+    min-height: 100vh;
+}
+
+main {
+    display: grid; grid-template-columns: 480px 1fr;
+    height: 100vh;
+}
+@media (max-width: 900px) {
+    main { grid-template-columns: 1fr; }
+    .code-panel { max-height: 50vh; }
+}
+
+.code-panel {
+    border-right: 1px solid #d0d7de; overflow: hidden; padding: 0;
+    background: #ffffff; display: flex; flex-direction: column;
+}
+.panel-header {
+    font-size: 12px; color: #656d76; text-transform: uppercase;
+    letter-spacing: 1px; padding: 10px 16px;
+    border-bottom: 1px solid #d0d7de; background: #f6f8fa;
+    display: flex; align-items: center; gap: 10px;
+}
+.panel-header .title { flex: 1; }
+.editor-wrap {
+    position: relative; width: 100%; flex: 1; overflow: hidden;
+}
+.editor-wrap pre, .editor-wrap textarea {
+    font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Menlo', 'Consolas', monospace;
+    font-size: 13px; line-height: 1.5; padding: 12px 16px;
+    tab-size: 4; margin: 0; border: none; outline: none;
+    white-space: pre; overflow: auto;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+}
+.editor-highlight {
+    background: #ffffff; color: #24292e; pointer-events: none; z-index: 0;
+}
+.editor-textarea {
+    background: transparent; color: transparent; caret-color: #24292e;
+    z-index: 1; resize: none; -webkit-text-fill-color: transparent;
+}
+.kw { color: #cf222e; }
+.ty { color: #0550ae; }
+.fn { color: #8250df; }
+.num { color: #0550ae; }
+.str { color: #0a3069; }
+.cm { color: #6e7781; font-style: italic; }
+
+.right-panel {
+    display: flex; flex-direction: column;
+    background: #ffffff; overflow: hidden;
+}
+
+button {
+    background: #2da44e; color: #fff; border: none; border-radius: 6px;
+    padding: 7px 20px; font-size: 13px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: background 0.15s;
+}
+button:hover:not(:disabled) { background: #218838; }
+button:disabled { background: #94d3a2; cursor: wait; }
+
+.console-out {
+    flex: 1;
+    font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.6; color: #24292e;
+    overflow-y: auto; white-space: pre-wrap;
+    padding: 12px 16px; background: #ffffff;
+}
+.status {
+    font-style: italic; color: #6e7781;
+}
+</style>
+</head>
+<body>
+
+<main>
+    <section class="code-panel">
+        <div class="panel-header">
+            <span class="title">babilonese.py — Python (Pyodide)</span>
+            <button id="btn-run" disabled>Caricamento…</button>
+        </div>
+        <div class="editor-wrap">
+            <pre class="editor-highlight" id="editor-highlight"></pre>
+            <textarea class="editor-textarea" id="source-editor" spellcheck="false"></textarea>
+        </div>
+    </section>
+
+    <section class="right-panel">
+        <div class="console-out" id="console-out"><span class="status">Caricamento di Python in corso (Pyodide, ~10 MB) — attendi qualche secondo...</span></div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+<script>
+const PY_SOURCE = `# Algoritmo Babilonese per la radice quadrata
+# Idea: x_{n+1} = (x_n + S / x_n) / 2
+
+S = 4.0   # numero di cui calcolare la radice
+x = S     # stima iniziale
+
+for i in range(20):
+    x = (x + S / x) / 2.0
+    print(f"step {i:2d}: x = {x}")
+
+print()
+print(f"sqrt({S}) ~ {x}")
+`;
+
+function highlightPy(code) {
+    let h = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return h.split('\n').map(line => {
+        const cmIdx = line.indexOf('#');
+        let cp = cmIdx >= 0 ? line.slice(0, cmIdx) : line;
+        let cm = cmIdx >= 0 ? '<span class="cm">' + line.slice(cmIdx) + '</span>' : '';
+        cp = cp.replace(/(f?&quot;(?:[^&]|&(?!quot;))*?&quot;)/g, '<span class="str">$1</span>');
+        cp = cp.replace(/(f?'(?:[^']|\\.)*?')/g, '<span class="str">$1</span>');
+        cp = cp.replace(/\b(def|for|in|if|else|elif|while|return|import|from|as|class|with|pass|break|continue|and|or|not|is|None|True|False)\b/g, m => {
+            if (m === 'True' || m === 'False' || m === 'None') return '<span class="num">' + m + '</span>';
+            return '<span class="kw">' + m + '</span>';
+        });
+        cp = cp.replace(/\b(print|range|len|int|float|str|abs|round)\b/g, '<span class="fn">$1</span>');
+        cp = cp.replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>');
+        return cp + cm;
+    }).join('\n');
+}
+
+const ta = document.getElementById('source-editor');
+const pre = document.getElementById('editor-highlight');
+const consoleOut = document.getElementById('console-out');
+const btn = document.getElementById('btn-run');
+
+function syncHighlight() { pre.innerHTML = highlightPy(ta.value) + '\n'; }
+function syncScroll() { pre.scrollTop = ta.scrollTop; pre.scrollLeft = ta.scrollLeft; }
+ta.addEventListener('input', syncHighlight);
+ta.addEventListener('scroll', syncScroll);
+
+ta.value = PY_SOURCE;
+syncHighlight();
+
+let pyodide;
+async function loadPy() {
+    pyodide = await loadPyodide();
+    btn.textContent = 'Run';
+    btn.disabled = false;
+    consoleOut.innerHTML = '<span class="status">Python pronto. Premi "Run" per eseguire il codice.</span>';
+}
+loadPy().catch(err => {
+    consoleOut.textContent = '[Errore caricamento Pyodide]\n' + err.message;
+});
+
+async function run() {
+    consoleOut.textContent = 'Eseguo...';
+    btn.disabled = true;
+    btn.textContent = '...';
+    try {
+        pyodide.globals.set('user_code', ta.value);
+        const output = await pyodide.runPythonAsync(`
+import sys, io, traceback
+_buf = io.StringIO()
+_old = sys.stdout
+sys.stdout = _buf
+try:
+    exec(user_code, {})
+except Exception:
+    traceback.print_exc()
+finally:
+    sys.stdout = _old
+_buf.getvalue()
+`);
+        consoleOut.textContent = output;
+        consoleOut.scrollTop = consoleOut.scrollHeight;
+    } catch (e) {
+        consoleOut.textContent = '[Errore]\n' + e.message;
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Run';
+    }
+}
+btn.addEventListener('click', run);
+</script>
+</body>
+</html>
