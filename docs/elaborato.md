@@ -3,7 +3,7 @@
 Lavoro di rielaborazione sul modulo di Intelligenza Artificiale svolto in classe. Obiettivo: dimostrare comprensione personale, **non riassumere passivamente**.
 
 !!! info "In sintesi"
-    **Impegno previsto:** ~5–8 ore di lavoro effettivo a persona. Non deve essere un progetto enorme.
+    **Impegno previsto:** ~3 ore di lavoro effettivo a persona. Non deve essere un progetto enorme.
 
     **Modalità:** individuale o in gruppo da 2–3. In gruppo va dichiarato in `README.md` chi ha fatto cosa.
 
@@ -27,7 +27,7 @@ Esempi di formato (non esaustivi):
 - articolo divulgativo, tutorial passo-passo
 - video con sorgenti aperti dello script
 
-Dopo la consegna ti farò un **mini-orale di 2–3 minuti** sull'artefatto: due-tre domande per verificare che le idee siano davvero tue. In gruppo, ognuno risponde sulla propria parte.
+È previsto un **mini-orale di 2–3 minuti** sull'artefatto, dopo la consegna: due-tre domande per verificare che le idee siano davvero tue. In gruppo, ognuno risponde sulla propria parte.
 
 ### Opzione B — Approfondimento + orale
 
@@ -39,8 +39,6 @@ Esempi:
 - backpropagation: derivazione matematica
 - funzioni di attivazione a confronto
 - overfitting, regolarizzazione, train/validation/test split
-- convoluzioni e CNN
-- transformer e meccanismi di attenzione
 - storia dell'AI: inverni e svolte
 - altro tema concordato
 
@@ -89,4 +87,4 @@ Una cartella (zip o repository) contenente:
 
 ## Scadenza
 
-*Da definire.*
+**3 giugno 2026.**
