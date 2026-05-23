@@ -69,4 +69,10 @@ Il numero $\eta$ è il **learning rate**: troppo grande e si rimbalza fuori dal 
   <div class="desc">Notebook didattico su GitHub: si applica il gradient descent ai dati delle molle per trovare $w, b$ che minimizzano la funzione di costo. Stesso problema della formula chiusa, risolto numericamente.</div>
 </a>
 
+<a class="material-card" href="https://frhack.github.io/CORSO_AI/demo_lr_loss.html" target="_blank">
+  <span class="kind">Interattivo ↗</span>
+  <div class="title">Demo: superficie della loss + traiettoria del GD</div>
+  <div class="desc">Visualizzazione real-time per la regressione lineare. A sinistra: i dati con la retta che si aggiusta epoca per epoca. A destra: la superficie della loss in $(w, b)$ con curve di livello e la traiettoria del gradient descent che scivola verso il minimo. Il modo più diretto per "vedere" cosa fa l'algoritmo che il notebook qui sopra implementa.</div>
+</a>
+
 </div>
