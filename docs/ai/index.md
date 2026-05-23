@@ -8,44 +8,44 @@ Il modulo parte da **cos'è l'AI** (definizioni di AGI e singolarità, il dibatt
 
 <a class="material-card" href="introduzione/">
   <span class="kind">Sezione</span>
-  <div class="title" markdown="span">Cos'è l'AI</div>
-  <div class="desc" markdown="span">Definizioni di AGI e singolarità tecnologica. Il discorso di Geoffrey Hinton (Nobel per la Fisica 2024).</div>
+  <div class="title">Cos'è l'AI</div>
+  <div class="desc">Definizioni di AGI e singolarità tecnologica. Il discorso di Geoffrey Hinton (Nobel per la Fisica 2024).</div>
 </a>
 
 <a class="material-card" href="programmazione/">
   <span class="kind">Sezione</span>
-  <div class="title" markdown="span">Programmazione</div>
-  <div class="desc" markdown="span">Cosa è un programma. Sequenze di istruzioni, algoritmi.</div>
+  <div class="title">Programmazione</div>
+  <div class="desc">Cosa è un programma. Sequenze di istruzioni, algoritmi.</div>
 </a>
 
 <a class="material-card" href="prerequisiti/">
   <span class="kind">Sezione</span>
-  <div class="title" markdown="span">Prerequisiti matematici</div>
-  <div class="desc" markdown="span">Vettori, matrici, prodotto scalare, trasformazioni lineari, gaussiana.</div>
+  <div class="title">Prerequisiti matematici</div>
+  <div class="desc">Vettori, matrici, prodotto scalare, trasformazioni lineari, gaussiana.</div>
 </a>
 
 <a class="material-card" href="parametri/">
   <span class="kind">Sezione</span>
-  <div class="title" markdown="span">Cosa sono i parametri?</div>
-  <div class="desc" markdown="span">I "numeri regolabili" di un modello. Apprendimento (trovare i parametri dai dati) vs inferenza (usarli per fare previsioni).</div>
+  <div class="title">Cosa sono i parametri?</div>
+  <div class="desc">I "numeri regolabili" di un modello. Apprendimento (trovare i parametri dai dati) vs inferenza (usarli per fare previsioni).</div>
 </a>
 
 <a class="material-card" href="regressione/">
   <span class="kind">Sezione</span>
-  <div class="title" markdown="span">Regressione lineare</div>
-  <div class="desc" markdown="span">Dimostrazione delle formule (minimi quadrati) dai dati delle molle; perché regressione batte la media per stimare R nell'esperimento sulla resistenza.</div>
+  <div class="title">Regressione lineare</div>
+  <div class="desc">Dimostrazione delle formule (minimi quadrati) dai dati delle molle; perché regressione batte la media per stimare R nell'esperimento sulla resistenza.</div>
 </a>
 
 <a class="material-card" href="gradient-descent/">
   <span class="kind">Sezione</span>
-  <div class="title" markdown="span">Gradient descent</div>
-  <div class="desc" markdown="span">Metodo numerico generale per minimizzare la funzione di costo. Notebook didattico passo-passo.</div>
+  <div class="title">Gradient descent</div>
+  <div class="desc">Metodo numerico generale per minimizzare la funzione di costo. Notebook didattico passo-passo.</div>
 </a>
 
 <a class="material-card" href="reti-neurali/">
   <span class="kind">Sezione</span>
-  <div class="title" markdown="span">Reti neurali</div>
-  <div class="desc" markdown="span">Neurone artificiale, porte logiche, MNIST con cosine similarity e rete neurale.</div>
+  <div class="title">Reti neurali</div>
+  <div class="desc">Neurone artificiale, porte logiche, MNIST con cosine similarity e rete neurale.</div>
 </a>
 
 </div>
