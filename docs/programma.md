@@ -20,6 +20,13 @@
 - Trasformazioni lineari (visualizzazione interattiva)
 - Distribuzione gaussiana
 
+### Cosa sono i parametri?
+
+- Definizione di **parametri** di un modello
+- **Apprendimento** (training): trovare i parametri a partire dai dati
+- **Inferenza**: usare i parametri per fare previsioni su dati nuovi
+- Riferimento: [Cosa sono i parametri?](ai/parametri/index.md)
+
 ### Regressione lineare
 
 - Dati delle molle: dimostrazione delle formule della regressione lineare (minimi quadrati)

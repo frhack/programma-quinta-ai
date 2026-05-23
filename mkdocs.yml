@@ -83,6 +83,8 @@ nav:
       - ai/programmazione/index.md
     - Prerequisiti matematici:
       - ai/prerequisiti/index.md
+    - Cosa sono i parametri?:
+      - ai/parametri/index.md
     - Regressione lineare:
       - ai/regressione/index.md
     - Gradient descent:

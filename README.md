@@ -34,6 +34,7 @@ docs/
     ├── introduzione/      # Cos'è l'AI: AGI, singolarità, Hinton
     ├── programmazione/    # Cos'è un programma (+ PDF)
     ├── prerequisiti/
+    ├── parametri/         # Apprendimento vs inferenza
     ├── regressione/       # Regressione lineare (minimi quadrati)
     ├── gradient-descent/  # Metodo numerico (notebook)
     └── reti-neurali/

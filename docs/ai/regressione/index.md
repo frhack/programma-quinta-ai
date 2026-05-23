@@ -27,10 +27,6 @@ Cerchiamo i valori di $w, b$ che **minimizzano** $L$. Per la regressione lineare
   <div class="desc">Da una serie di misurazioni $(V_i, I_i)$ vogliamo stimare la resistenza $R$. Confrontiamo due strade: la <strong>media</strong> dei singoli rapporti $V_i/I_i$ e la <strong>regressione lineare</strong> ($R$ come pendenza della retta $V = R\,I$). Risultato: la regressione ha varianza minore, è una stima più precisa.</div>
 </a>
 
-<a class="material-card" href="presentazione-parametri.pdf" target="_blank">
-  <span class="kind">Slide</span>
-  <div class="title">Parametri di un modello</div>
-  <div class="desc">Cosa sono i parametri, come si trovano, intuizione che apre la strada al gradient descent.</div>
-</a>
-
 </div>
+
+> Per il concetto generale di **parametri**, **apprendimento** e **inferenza**, vedi la sezione [Cosa sono i parametri?](../parametri/index.md).

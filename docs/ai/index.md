@@ -24,6 +24,12 @@ Il modulo parte da **cos'è l'AI** (definizioni di AGI e singolarità, il dibatt
   <div class="desc">Vettori, matrici, prodotto scalare, trasformazioni lineari, gaussiana.</div>
 </a>
 
+<a class="material-card" href="parametri/">
+  <span class="kind">Sezione</span>
+  <div class="title">Cosa sono i parametri?</div>
+  <div class="desc">I "numeri regolabili" di un modello. Apprendimento (trovare i parametri dai dati) vs inferenza (usarli per fare previsioni).</div>
+</a>
+
 <a class="material-card" href="regressione/">
   <span class="kind">Sezione</span>
   <div class="title">Regressione lineare</div>
