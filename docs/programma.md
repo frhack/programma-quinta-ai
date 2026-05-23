@@ -5,7 +5,7 @@
 ### Programmazione
 
 - Cos'è un programma: sequenza di istruzioni, algoritmi, esecuzione
-- Riferimento: [dispensa "Programmazione"](ai/programmazione.md)
+- Riferimento: [dispensa "Programmazione"](ai/programmazione/index.md)
 
 ### Prerequisiti matematici
 

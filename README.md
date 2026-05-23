@@ -31,7 +31,7 @@ docs/
 ├── programma.md          # Programma svolto
 ├── elaborato.md          # Consegna elaborato AI
 └── ai/                   # Modulo AI
-    ├── programmazione.md # Cos'è un programma (+ PDF)
+    ├── programmazione/    # Cos'è un programma (+ PDF)
     ├── prerequisiti/
     ├── regressione/
     └── reti-neurali/

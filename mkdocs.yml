@@ -77,7 +77,8 @@ nav:
   - Programma: programma.md
   - Intelligenza Artificiale:
     - ai/index.md
-    - Programmazione: ai/programmazione.md
+    - Programmazione:
+      - ai/programmazione/index.md
     - Prerequisiti matematici:
       - ai/prerequisiti/index.md
     - Regressione e gradient descent:
