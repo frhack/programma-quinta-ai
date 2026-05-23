@@ -77,6 +77,8 @@ nav:
   - Programma: programma.md
   - Intelligenza Artificiale:
     - ai/index.md
+    - Cos'è l'AI (AGI, singolarità, Hinton):
+      - ai/introduzione/index.md
     - Programmazione:
       - ai/programmazione/index.md
     - Prerequisiti matematici:

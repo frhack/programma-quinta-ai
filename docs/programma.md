@@ -2,6 +2,13 @@
 
 ## Intelligenza Artificiale
 
+### Cos'è l'AI
+
+- Definizione di **AGI** (intelligenza artificiale generale)
+- Definizione di **singolarità tecnologica**
+- Il discorso di **Geoffrey Hinton** (Nobel per la Fisica 2024) e il dibattito attuale
+- Riferimenti: [Cos'è l'AI](ai/introduzione/index.md)
+
 ### Programmazione
 
 - Cos'è un programma: sequenza di istruzioni, algoritmi, esecuzione

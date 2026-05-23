@@ -19,7 +19,7 @@ Raccoglie il **programma svolto**, il **materiale didattico** (dispense, slide, 
 <a class="material-card" href="ai/">
   <span class="kind">Modulo</span>
   <div class="title">Intelligenza Artificiale</div>
-  <div class="desc">Programmazione, prerequisiti matematici, regressione, neurone artificiale, reti neurali, MNIST.</div>
+  <div class="desc">Cos'è l'AI (AGI, singolarità), programmazione, prerequisiti matematici, regressione, neurone artificiale, reti neurali, MNIST.</div>
 </a>
 
 <a class="material-card" href="elaborato/">
