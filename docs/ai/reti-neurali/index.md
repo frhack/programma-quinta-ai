@@ -79,14 +79,12 @@ A questo punto la rete riesce a rappresentare anche XOR (e in linea di principio
 
 ## Applicazione: classificare le cifre (MNIST)
 
-Una volta capito il meccanismo "neurone → bias → rete con attivazione", l'applicazione realistica è classificare immagini di **cifre scritte a mano** (dataset MNIST). Ingresso: 784 pixel. Uscita: una delle 10 classi (0–9). Pesi appresi dai dati col gradient descent.
-
 <div class="material-grid">
 
 <a class="material-card" href="https://github.com/frhack/oli_ai/blob/main/notebooks/oli_ai_mnist_rete_neurale_didattica.ipynb" target="_blank">
   <span class="kind">Notebook ↗</span>
   <div class="title">MNIST con una rete neurale</div>
-  <div class="desc">Architettura della rete, training su MNIST, valutazione dell'accuratezza. Da confrontare con l'approccio cosine similarity visto nella sezione <a href="../parametri/">Cosa sono i parametri?</a> — entrambi classificano cifre, ma uno "impara" davvero i pesi e l'altro no.</div>
+  <div class="desc">Rete neurale addestrata a classificare immagini di cifre scritte a mano (dataset MNIST).</div>
 </a>
 
 </div>
