@@ -12,20 +12,20 @@ Raccoglie il **programma svolto**, il **materiale didattico** (dispense, slide, 
 
 <a class="material-card" href="programma/">
   <span class="kind">Riferimento</span>
-  <div class="title">Programma svolto</div>
-  <div class="desc">Argomenti trattati, obiettivi per competenze, materiali di riferimento.</div>
+  <div class="title" markdown="span">Programma svolto</div>
+  <div class="desc" markdown="span">Argomenti trattati, obiettivi per competenze, materiali di riferimento.</div>
 </a>
 
 <a class="material-card" href="ai/">
   <span class="kind">Modulo</span>
-  <div class="title">Intelligenza Artificiale</div>
-  <div class="desc">Cos'è l'AI (AGI, singolarità), programmazione, prerequisiti matematici, regressione, neurone artificiale, reti neurali, MNIST.</div>
+  <div class="title" markdown="span">Intelligenza Artificiale</div>
+  <div class="desc" markdown="span">Cos'è l'AI (AGI, singolarità), programmazione, prerequisiti matematici, regressione, neurone artificiale, reti neurali, MNIST.</div>
 </a>
 
 <a class="material-card" href="elaborato/">
   <span class="kind">Consegna</span>
-  <div class="title">Elaborato finale di AI</div>
-  <div class="desc">Cosa scegliere, regole sul formato, uso dell'AI, cosa consegnare, criteri di valutazione.</div>
+  <div class="title" markdown="span">Elaborato finale di AI</div>
+  <div class="desc" markdown="span">Cosa scegliere, regole sul formato, uso dell'AI, cosa consegnare, criteri di valutazione.</div>
 </a>
 
 </div>

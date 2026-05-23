@@ -12,32 +12,32 @@ Le idee dell'AI poggiano su tre pilastri matematici molto concreti:
 
 <a class="material-card" href="ripasso-vettori.pdf" target="_blank">
   <span class="kind">Dispensa</span>
-  <div class="title">Ripasso vettori</div>
-  <div class="desc">Operazioni, prodotto scalare, norma, interpretazione geometrica.</div>
+  <div class="title" markdown="span">Ripasso vettori</div>
+  <div class="desc" markdown="span">Operazioni, prodotto scalare, norma, interpretazione geometrica.</div>
 </a>
 
 <a class="material-card" href="dispensa-matrici.pdf" target="_blank">
   <span class="kind">Dispensa</span>
-  <div class="title">Matrici</div>
-  <div class="desc">Prodotto matrice-vettore, matrice-matrice, esempi numerici.</div>
+  <div class="title" markdown="span">Matrici</div>
+  <div class="desc" markdown="span">Prodotto matrice-vettore, matrice-matrice, esempi numerici.</div>
 </a>
 
 <a class="material-card" href="trasformazioni-lineari.html" target="_blank">
   <span class="kind">Interattivo</span>
-  <div class="title">Trasformazioni lineari</div>
-  <div class="desc">Visualizzazione: cosa fa una matrice 2×2 al piano. Rotazioni, scalature, shear.</div>
+  <div class="title" markdown="span">Trasformazioni lineari</div>
+  <div class="desc" markdown="span">Visualizzazione: cosa fa una matrice 2×2 al piano. Rotazioni, scalature, shear.</div>
 </a>
 
 <a class="material-card" href="lezione-gaussiana.pdf" target="_blank">
   <span class="kind">Lezione</span>
-  <div class="title">Distribuzione gaussiana</div>
-  <div class="desc">Media, deviazione standard, "perché è dappertutto".</div>
+  <div class="title" markdown="span">Distribuzione gaussiana</div>
+  <div class="desc" markdown="span">Media, deviazione standard, "perché è dappertutto".</div>
 </a>
 
 <a class="material-card" href="verifica-vettori-matrici.pdf" target="_blank">
   <span class="kind">Verifica</span>
-  <div class="title">Verifica vettori e matrici</div>
-  <div class="desc">Testo del compito scritto.</div>
+  <div class="title" markdown="span">Verifica vettori e matrici</div>
+  <div class="desc" markdown="span">Testo del compito scritto.</div>
 </a>
 
 </div>

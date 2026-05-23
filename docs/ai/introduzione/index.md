@@ -49,26 +49,26 @@ Nel 2023 ha lasciato Google per **parlare liberamente dei rischi** dell'AI avanz
 
 <a class="material-card" href="https://www.youtube.com/watch?v=-f5WQAk3dYo" target="_blank">
   <span class="kind">Video</span>
-  <div class="title">Discorso di Geoffrey Hinton</div>
-  <div class="desc">YouTube — Hinton parla dei rischi e delle prospettive dell'AI moderna.</div>
+  <div class="title" markdown="span">Discorso di Geoffrey Hinton</div>
+  <div class="desc" markdown="span">YouTube — Hinton parla dei rischi e delle prospettive dell'AI moderna.</div>
 </a>
 
 <a class="material-card" href="https://www.nobelprize.org/prizes/physics/2024/hinton/lecture/" target="_blank">
   <span class="kind">Pagina ufficiale</span>
-  <div class="title">Nobel Lecture 2024</div>
-  <div class="desc">Sito ufficiale del Premio Nobel: testo e video della Nobel Lecture di Hinton.</div>
+  <div class="title" markdown="span">Nobel Lecture 2024</div>
+  <div class="desc" markdown="span">Sito ufficiale del Premio Nobel: testo e video della Nobel Lecture di Hinton.</div>
 </a>
 
 <a class="material-card" href="https://www.nobelprize.org/prizes/physics/2024/hinton/facts/" target="_blank">
   <span class="kind">Biografia</span>
-  <div class="title">Hinton — biografia Nobel</div>
-  <div class="desc">Scheda biografica ufficiale del comitato Nobel.</div>
+  <div class="title" markdown="span">Hinton — biografia Nobel</div>
+  <div class="desc" markdown="span">Scheda biografica ufficiale del comitato Nobel.</div>
 </a>
 
 <a class="material-card" href="https://it.wikipedia.org/wiki/Geoffrey_Hinton" target="_blank">
   <span class="kind">Wikipedia</span>
-  <div class="title">Geoffrey Hinton — voce italiana</div>
-  <div class="desc">Sintesi della carriera scientifica e delle posizioni pubbliche.</div>
+  <div class="title" markdown="span">Geoffrey Hinton — voce italiana</div>
+  <div class="desc" markdown="span">Sintesi della carriera scientifica e delle posizioni pubbliche.</div>
 </a>
 
 </div>

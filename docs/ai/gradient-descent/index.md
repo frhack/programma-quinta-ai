@@ -29,14 +29,14 @@ Il numero $\eta$ è il **learning rate**: troppo grande e si rimbalza fuori dal 
 
 <a class="material-card" href="derivative.html" target="_blank">
   <span class="kind">Interattivo</span>
-  <div class="title">Gradiente in una dimensione</div>
-  <div class="desc">Funzione di una variabile: vedi come la derivata (pendenza della tangente) cambia muovendoti lungo la curva. Il "gradiente 1D" è la derivata.</div>
+  <div class="title" markdown="span">Gradiente in una dimensione</div>
+  <div class="desc" markdown="span">Funzione di una variabile: vedi come la derivata (pendenza della tangente) cambia muovendoti lungo la curva. Il "gradiente 1D" è la derivata.</div>
 </a>
 
 <a class="material-card" href="grad.html" target="_blank">
   <span class="kind">Interattivo</span>
-  <div class="title">Gradiente in due dimensioni</div>
-  <div class="desc">Funzione di due variabili: il gradiente è un vettore con due componenti (derivate parziali) che punta nella direzione di massima salita.</div>
+  <div class="title" markdown="span">Gradiente in due dimensioni</div>
+  <div class="desc" markdown="span">Funzione di due variabili: il gradiente è un vettore con due componenti (derivate parziali) che punta nella direzione di massima salita.</div>
 </a>
 
 </div>
@@ -47,14 +47,14 @@ Il numero $\eta$ è il **learning rate**: troppo grande e si rimbalza fuori dal 
 
 <a class="material-card" href="https://frhack.github.io/CORSO_AI/gd_live.html" target="_blank">
   <span class="kind">Interattivo ↗</span>
-  <div class="title">Gradient descent — vista 2D</div>
-  <div class="desc">L'algoritmo che scende lungo una funzione di costo, visualizzato sulle curve di livello (2D). Modifica learning rate e punto di partenza.</div>
+  <div class="title" markdown="span">Gradient descent — vista 2D</div>
+  <div class="desc" markdown="span">L'algoritmo che scende lungo una funzione di costo, visualizzato sulle curve di livello (2D). Modifica learning rate e punto di partenza.</div>
 </a>
 
 <a class="material-card" href="https://frhack.github.io/CORSO_AI/gd_live_3d.html" target="_blank">
   <span class="kind">Interattivo ↗</span>
-  <div class="title">Gradient descent — vista 3D</div>
-  <div class="desc">La stessa discesa, vista come "una pallina che rotola" sulla superficie tridimensionale della loss.</div>
+  <div class="title" markdown="span">Gradient descent — vista 3D</div>
+  <div class="desc" markdown="span">La stessa discesa, vista come "una pallina che rotola" sulla superficie tridimensionale della loss.</div>
 </a>
 
 </div>
@@ -65,14 +65,14 @@ Il numero $\eta$ è il **learning rate**: troppo grande e si rimbalza fuori dal 
 
 <a class="material-card" href="https://github.com/frhack/oli_ai/blob/main/notebooks/oli_ai_gradient_descent_didattica.ipynb" target="_blank">
   <span class="kind">Notebook ↗</span>
-  <div class="title">Trovare la retta che minimizza il costo (gradient descent)</div>
-  <div class="desc">Notebook didattico su GitHub: si applica il gradient descent ai dati delle molle per trovare $w, b$ che minimizzano la funzione di costo. Stesso problema della formula chiusa, risolto numericamente.</div>
+  <div class="title" markdown="span">Trovare la retta che minimizza il costo (gradient descent)</div>
+  <div class="desc" markdown="span">Notebook didattico su GitHub: si applica il gradient descent ai dati delle molle per trovare $w, b$ che minimizzano la funzione di costo. Stesso problema della formula chiusa, risolto numericamente.</div>
 </a>
 
 <a class="material-card" href="https://frhack.github.io/CORSO_AI/demo_lr_loss.html" target="_blank">
   <span class="kind">Interattivo ↗</span>
-  <div class="title">Demo: superficie della loss + traiettoria del GD</div>
-  <div class="desc">Visualizzazione real-time per la regressione lineare. A sinistra: i dati con la retta che si aggiusta epoca per epoca. A destra: la superficie della loss in $(w, b)$ con curve di livello e la traiettoria del gradient descent che scivola verso il minimo. Il modo più diretto per "vedere" cosa fa l'algoritmo che il notebook qui sopra implementa.</div>
+  <div class="title" markdown="span">Demo: superficie della loss + traiettoria del GD</div>
+  <div class="desc" markdown="span">Visualizzazione real-time per la regressione lineare. A sinistra: i dati con la retta che si aggiusta epoca per epoca. A destra: la superficie della loss in $(w, b)$ con curve di livello e la traiettoria del gradient descent che scivola verso il minimo. Il modo più diretto per "vedere" cosa fa l'algoritmo che il notebook qui sopra implementa.</div>
 </a>
 
 </div>

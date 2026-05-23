@@ -16,44 +16,44 @@ L'addestramento è lo stesso schema della regressione: scegliamo una funzione di
 
 <a class="material-card" href="neurone-biologico-artificiale.pdf" target="_blank">
   <span class="kind">Dispensa</span>
-  <div class="title">Neurone biologico e artificiale</div>
-  <div class="desc">Analogia, schema, equazione del neurone, funzioni di attivazione.</div>
+  <div class="title" markdown="span">Neurone biologico e artificiale</div>
+  <div class="desc" markdown="span">Analogia, schema, equazione del neurone, funzioni di attivazione.</div>
 </a>
 
 <a class="material-card" href="porte-logiche.ipynb">
   <span class="kind">Notebook</span>
-  <div class="title">Porte logiche — didattico</div>
-  <div class="desc">AND, OR, NOT con un neurone: scelta dei pesi a mano.</div>
+  <div class="title" markdown="span">Porte logiche — didattico</div>
+  <div class="desc" markdown="span">AND, OR, NOT con un neurone: scelta dei pesi a mano.</div>
 </a>
 
 <a class="material-card" href="porte-logiche-bias.ipynb">
   <span class="kind">Notebook</span>
-  <div class="title">Porte logiche con bias</div>
-  <div class="desc">Perché serve il bias, effetto sulla retta di separazione.</div>
+  <div class="title" markdown="span">Porte logiche con bias</div>
+  <div class="desc" markdown="span">Perché serve il bias, effetto sulla retta di separazione.</div>
 </a>
 
 <a class="material-card" href="porte-logiche-keras.ipynb">
   <span class="kind">Notebook</span>
-  <div class="title">Porte logiche con Keras</div>
-  <div class="desc">Lo stesso problema, ora addestrato automaticamente con Keras.</div>
+  <div class="title" markdown="span">Porte logiche con Keras</div>
+  <div class="desc" markdown="span">Lo stesso problema, ora addestrato automaticamente con Keras.</div>
 </a>
 
 <a class="material-card" href="mnist-cosine-similarity.ipynb">
   <span class="kind">Notebook</span>
-  <div class="title">MNIST — cosine similarity</div>
-  <div class="desc">Classificare le cifre confrontandole con le "cifre medie". Niente training: solo vettori e prodotti scalari.</div>
+  <div class="title" markdown="span">MNIST — cosine similarity</div>
+  <div class="desc" markdown="span">Classificare le cifre confrontandole con le "cifre medie". Niente training: solo vettori e prodotti scalari.</div>
 </a>
 
 <a class="material-card" href="mnist-rete-neurale.ipynb">
   <span class="kind">Notebook</span>
-  <div class="title">MNIST — rete neurale</div>
-  <div class="desc">Rete neurale base addestrata su MNIST. Confronto con l'approccio cosine similarity.</div>
+  <div class="title" markdown="span">MNIST — rete neurale</div>
+  <div class="desc" markdown="span">Rete neurale base addestrata su MNIST. Confronto con l'approccio cosine similarity.</div>
 </a>
 
 <a class="material-card" href="loss-surface-explorer.html" target="_blank">
   <span class="kind">Interattivo</span>
-  <div class="title">Esploratore della loss surface</div>
-  <div class="desc">Cammina sulla superficie della funzione di costo e guarda come la rete impara.</div>
+  <div class="title" markdown="span">Esploratore della loss surface</div>
+  <div class="desc" markdown="span">Cammina sulla superficie della funzione di costo e guarda come la rete impara.</div>
 </a>
 
 </div>
