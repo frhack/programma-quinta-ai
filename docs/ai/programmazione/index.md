@@ -12,4 +12,10 @@ Punto di partenza del modulo di AI: cosa è un programma, cos'è un algoritmo, c
   <div class="desc">Cosa è un programma.</div>
 </a>
 
+<a class="material-card" href="maze-bfs.html" target="_blank">
+  <span class="kind">Interattivo</span>
+  <div class="title">Trovare l'uscita di un labirinto</div>
+  <div class="desc">Stack vs Queue: come cambia la ricerca del percorso al variare della struttura dati.</div>
+</a>
+
 </div>
