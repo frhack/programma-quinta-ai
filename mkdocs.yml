@@ -73,10 +73,8 @@ plugins:
       allow_errors: false
 
 nav:
-  - Home: index.md
-  - Programma: programma.md
   - Intelligenza Artificiale:
-    - ai/index.md
+    - index.md
     - Cos'è l'AI (AGI, singolarità, Hinton):
       - ai/introduzione/index.md
     - Programmazione:
@@ -91,4 +89,5 @@ nav:
       - ai/gradient-descent/index.md
     - Reti neurali:
       - ai/reti-neurali/index.md
+    - Programma svolto: programma.md
   - Elaborato finale: elaborato.md

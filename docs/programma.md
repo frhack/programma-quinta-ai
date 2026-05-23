@@ -46,7 +46,7 @@
 - Classificazione MNIST: approccio cosine similarity e rete neurale base
 - Parametri, iperparametri, training
 
-**Materiali:** programmazione, dispensa matrici, ripasso vettori, dispensa regressione molle, lezione gaussiana, neurone completo, presentazione parametri, notebook (gradient descent, MNIST, porte logiche), pagine HTML (esperimento resistenza, trasformazioni lineari, esploratore loss). → [Vai alla sezione AI](ai/index.md)
+**Materiali:** programmazione, dispensa matrici, ripasso vettori, dispensa regressione molle, lezione gaussiana, neurone completo, presentazione parametri, notebook (gradient descent, MNIST, porte logiche), pagine HTML (esperimento resistenza, trasformazioni lineari, esploratore loss). → [Torna alla home](index.md)
 
 ## Verifiche
 
